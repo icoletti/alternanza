@@ -1,0 +1,11 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - .env
+    ports:
+      - ${PORT}:${PORT}
+    container_name: "container_flask"
+    volumes:
+      - ./backend:/usr/src/app
