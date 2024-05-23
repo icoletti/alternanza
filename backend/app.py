@@ -15,7 +15,19 @@ def start():
     return render_template('landing.html')
 
 @app.route('/form/', methods=('GET', 'POST'))
-def form():
+def submit():
+    if request.method == "POST":
+      username = request.form.get("username")
+      about = request.form.get("about")
+      first_name = request.form.get("fname")
+      last_name = request.form.get("lname")
+      email = request.form.get("email")
+      country = request.form.get("country")
+      address = request.form.get("street-address")
+      city = request.form.get("city")
+      region = request.form.get("region")
+      postal_code = request.form.get("postal-code")
+      return "I tuoi dati sono: "+username+" " +about+" "  +first_name+" "  +last_name+" "  +email +" " +country +" " +address+" " +city+" " +region+" " +postal_code
     return render_template('form.html')
 
 

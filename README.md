@@ -17,3 +17,5 @@ Per approfondire Docker Compose, vedere la [documentazione ufficiale](https://do
 [Documentazione con esempi pratici di docker, docker compose](https://docker-curriculum.com/).
 
 Per ulteriori informazioni riguardanti flask consultare la [documentazione ufficiale](https://flask.palletsprojects.com/en/3.0.x/)
+
+[Documentazione ufficiale di tailwind CSS](https://tailwindcss.com/docs/installation)
