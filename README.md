@@ -7,7 +7,8 @@ Web application realizzata con ...,
 3. **Selezione del Framework Frontend**: analisi delle esigenze del progetto per scegliere il framework frontend ottimale tra React, Angular e Vue.js. La scelta terrà conto di criteri come la facilità d'uso, la performance e la compatibilità con il backend.
 4. **Sviluppo della pagina Web**: progettazione dell'interfaccia utente e sviluppo delle funzionalità frontend, garantendo un'esperienza utente intuitiva e responsive. Vanno implementate le richieste specifiche del progetto per soddisfare  gli obbiettivi funzionali.
 ## Documentazione
-
+### Color Palette 
+[Link dei colori](https://colorhunt.co/palette/fffae6ff9f66ff5f00002379)
 ## Risorse aggiuntive
 Per ulteriori informazioni su Docker, consultare la [documentazione ufficiale di docker](https://docs.docker.com/).
 

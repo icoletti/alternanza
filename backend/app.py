@@ -1,9 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import os
 
 HOST = os.environ["HOST"]
 PORT = os.environ.get("PORT", 8703)
-NAME = os.environ.get("NAME", None)
 
 app = Flask(__name__)
 
@@ -12,10 +11,10 @@ def home():
     return render_template('base.html')
 
 @app.route('/base/')
-def start(name=NAME):
-    return render_template('landing.html', name=name)
+def start():
+    return render_template('landing.html')
 
-@app.route('/form/')
+@app.route('/form/', methods=('GET', 'POST'))
 def form():
     return render_template('form.html')
 
