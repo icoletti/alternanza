@@ -8,12 +8,16 @@ NAME = os.environ.get("NAME", None)
 app = Flask(__name__)
 
 @app.route("/")
-def hello_world():
-    return "<p>Hello world</p>"
+def home():
+    return render_template('base.html')
 
-@app.route('/hello/')
-def hello(name=NAME):
-    return render_template('hello.html', name=name)
+@app.route('/base/')
+def start(name=NAME):
+    return render_template('landing.html', name=name)
+
+@app.route('/form/')
+def form():
+    return render_template('form.html')
 
 
 if __name__ == "__main__":

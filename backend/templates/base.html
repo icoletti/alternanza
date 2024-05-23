@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} - Flaskr</title>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">-->
+    <script src="{{ url_for('static', filename='js/tailwind.js') }}"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+              extend: {
+                colors: {
+                  resolutionblue: '#002379',
+                  blazeorange: '#FF5F00',
+                  atomictangerine: '#FF9F66',
+                  earlydawn: '#FFFAE6'
+                }
+              }
+            }
+          }
+    </script>
+</head>
+<body class="bg-earlydawn m-6">
+    {% block body %}{% endblock %} 
+</body>
+</html>
