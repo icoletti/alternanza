@@ -10,7 +10,7 @@ app = Flask(__name__)
 def home():
     return render_template('base.html')
 
-@app.route('/base/')
+@app.route('/info/')
 def start():
     return render_template('landing.html')
 
@@ -27,7 +27,10 @@ def submit():
       city = request.form.get("city")
       region = request.form.get("region")
       postal_code = request.form.get("postal-code")
-      return "I tuoi dati sono: "+username+" " +about+" "  +first_name+" "  +last_name+" "  +email +" " +country +" " +address+" " +city+" " +region+" " +postal_code
+      data = "I tuoi dati sono: "
+      data += "username: "+username+", dettagli: " +about+", nome: "  +first_name+", cognome: "  +last_name+", email: "  +email 
+      data += ", paese: " +country +", indirizzo: " +address+", città: " +city+", regione: " +region+", codice postale: " +postal_code
+      return data
     return render_template('form.html')
 
 
