@@ -1,40 +1,42 @@
 {% extends 'base.html' %}
 <h1>{% block title %}Form{% endblock %}</h1>
 {% block body %}
-<form method="POST" action="/">
-    
+<h1 class="display flex justify-center font-semibold text-resolutionblue text-3xl">Form</h1>
+<form class="mt-3" method="POST" action="{{ url_for('upload')}}">
+    {{ form.csrf_token }}
     {{form.hidden_tag()}}
-        {{ form.username.label }}
-        {{ form.username(size=32) }}
-
-        {{ form.about.label }}
-        {{ form.about(cols=32, rows=4) }}
-
-        {{ form.first_name.label }}
-        {{ form.first_name(size=32) }}
-   
-        {{ form.last_name.label }}
-        {{ form.last_name(size=32) }}
-   
-        {{ form.email.label }}
-        {{ form.email(size=32) }}
-   
-        {{ form.country.label }}
-        {{ form.country(size=32) }}
-   
-        {{ form.address.label }}
-        {{ form.address(size=32) }}
-   
-        {{ form.city.label }}
-        {{ form.city(size=32) }}
-    
-        {{ form.region.label }}
-        {{ form.region(size=32) }}
-    
-        {{ form.postal_code.label }}
-        {{ form.postal_code(size=32) }}
-    
-    {{ form.submit() }}
-    <input type="submit" value="Go">
+        <div class="p-1.5">
+            {{ form.username.label(class="block text-gray-900 text-base mb-2") }}{{ form.username(size=32, class="flex text-base rounded-md p-1.5 shadow-sm bg-white ring-1 ring-inset ring-atomictangerine focus-within:ring-2 focus-within:ring-inset focus-within:ring-resolutionblue sm:max-w-md") }}
+        </div>
+        <div class="p-1.5">
+            {{ form.about.label(class="block text-gray-900 text-base mb-2") }}{{ form.about(cols=32, rows=4, class="block w-full rounded-md p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-atomictangerine placeholder:text-gray-900 focus:ring-2 focus:ring-inset focus:ring-resolutionblue sm:text-sm sm:leading-6") }}
+        </div>
+        <div>
+            <div class="p-1.5">
+                {{ form.first_name.label(class="block text-gray-900 text-base mb-2") }}{{ form.first_name(size=32, class="block rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-atomictangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-resolutionblue sm:text-sm sm:leading-6") }}
+            <div class="p-1.5">
+                {{ form.last_name.label(class="block text-gray-900 text-base mb-2") }}{{ form.last_name(size=32, class="block rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-atomictangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-resolutionblue sm:text-sm sm:leading-6") }}
+            </div>
+        </div>
+        
+        <div class="p-1.5">
+            {{ form.email.label(class="block text-gray-900 text-base mb-2") }}{{ form.email(size=32, class="block rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-atomictangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-resolutionblue sm:text-sm sm:leading-6") }}
+        </div>
+        <div class="flex">
+            <div class="p-1.5">
+                {{ form.address.label(class="block text-gray-900 text-base mb-2") }}{{ form.address( class="block rounded-md w-50 border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-atomictangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-resolutionblue sm:text-sm sm:leading-6") }}
+            </div>
+            <div class="p-1.5">
+                {{ form.region.label (class="block text-gray-900 text-base mb-2")}}{{ form.region( class="block rounded-md w-50 border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-atomictangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-resolutionblue sm:text-sm sm:leading-6") }}
+            </div>
+            <div class="p-1.5">
+                {{ form.postal_code.label (class="block text-gray-900 text-base mb-2")}}{{ form.postal_code( class="block rounded-md w-50 border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-atomictangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-resolutionblue sm:text-sm sm:leading-6") }}
+            </div>
+        </div>
+        
+        <br>
+        <div class="mt-6 flex items-center justify-end gap-x-6">
+            <button type="submit" class="rounded-md bg-blazeorange px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-atomictangerine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blazeorange" value="Submit">Submit</button>
+        </div>
 </form>
 {% endblock %}

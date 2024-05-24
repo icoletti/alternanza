@@ -18,4 +18,6 @@ Per approfondire Docker Compose, vedere la [documentazione ufficiale](https://do
 
 Per ulteriori informazioni riguardanti flask consultare la [documentazione ufficiale](https://flask.palletsprojects.com/en/3.0.x/)
 
+Per ulteriori informazioni riguardanti flask-WTF consultare la [documentazione ufficiale](https://flask-wtf.readthedocs.io/en/1.2.x/)
+
 [Documentazione ufficiale di tailwind CSS](https://tailwindcss.com/docs/installation)

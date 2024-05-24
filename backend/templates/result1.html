@@ -11,50 +11,42 @@
         {% endfor %}
     </ul>
 {% else %}
-    <table>
+    <table class="container mx-auto">
         <tr>
-            <th>Field</th>
-            <th>Value</th>
+            <th class="text-resolutionblue text-left text-xl">Field</th>
+            <th class="text-left text-xl">Value</th>
         </tr>
         <tr>
-            <td>Username</td>
-            <td>{{ form.username.data }}</td>
+            <td class="text-resolutionblue text-left">Username</td>
+            <td class="text-left">{{ form.username.data }}</td>
         </tr>
         <tr>
-            <td>About</td>
-            <td>{{ form.about.data }}</td>
+            <td class="text-resolutionblue text-left">About</td>
+            <td class="text-left">{{ form.about.data }}</td>
         </tr>
         <tr>
-            <td>First Name</td>
-            <td>{{ form.first_name.data }}</td>
+            <td class="text-resolutionblue text-left">First Name</td>
+            <td class="text-left">{{ form.first_name.data }}</td>
         </tr>
         <tr>
-            <td>Last Name</td>
-            <td>{{ form.last_name.data }}</td>
+            <td class="text-resolutionblue text-left">Last Name</td>
+            <td class="text-left">{{ form.last_name.data }}</td>
         </tr>
         <tr>
-            <td>Email</td>
-            <td>{{ form.email.data }}</td>
+            <td class="text-resolutionblue text-left">Email</td>
+            <td class="text-left">{{ form.email.data }}</td>
         </tr>
         <tr>
-            <td>Country</td>
-            <td>{{ form.country.data }}</td>
+            <td class="text-resolutionblue text-left">Address</td>
+            <td class="text-left">{{ form.address.data }}</td>
         </tr>
         <tr>
-            <td>Address</td>
-            <td>{{ form.address.data }}</td>
+            <td class="text-resolutionblue text-left">Region</td>
+            <td class="text-left">{{ form.region.data }}</td>
         </tr>
         <tr>
-            <td>City</td>
-            <td>{{ form.city.data }}</td>
-        </tr>
-        <tr>
-            <td>Region</td>
-            <td>{{ form.region.data }}</td>
-        </tr>
-        <tr>
-            <td>Postal Code</td>
-            <td>{{ form.postal_code.data }}</td>
+            <td class="text-resolutionblue text-left">Postal Code</td>
+            <td class="text-left">{{ form.postal_code.data }}</td>
         </tr>
     </table>
 {% endif %}
