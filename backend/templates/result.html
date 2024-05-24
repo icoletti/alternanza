@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+<h1>{% block title %}Risultati{% endblock %}</h1>
+{% block body %}
+<section>
+
+    {% if error %}
+    <p class="text-xl text-blazeorange">{{error}}</p>
+
+    {% else %}
+    <h1 class="text-xl font-bold text-blazeorange mb-3">Risultati:</h1>
+    <div>
+        <p class="text-resolutionblue">Username: <span class="text-black">{{username}}</span></p>
+        <p class="text-resolutionblue">Dettagli: <span class="text-black">{{about}}</span></p>
+        <p class="text-resolutionblue">Nome: <span class="text-black">{{first_name}}</span></p>
+        <p class="text-resolutionblue">Cognome: <span class="text-black">{{last_name}}</span></p>
+        <p class="text-resolutionblue">Email: <span class="text-black">{{email}}</span></p>
+        <p class="text-resolutionblue">Paese: <span class="text-black">{{country}}</span></p>
+        <p class="text-resolutionblue">Indirizzo: <span class="text-black">{{address}}</span></p>
+        <p class="text-resolutionblue">Città: <span class="text-black">{{city}}</span></p>
+        <p class="text-resolutionblue">Stato: <span class="text-black">{{region}}</span></p>
+        <p class="text-resolutionblue">Codice postale: <span class="text-black">{{postal_code}}</span></p>
+    </div>
+
+    {% endif %}
+</section>
+{% endblock %}
