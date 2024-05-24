@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+<h1>{% block title %}Risultati{% endblock %}</h1>
+{% block body %}
+<section>
+    {% if form.errors %}
+    <ul class="text-blazeorange">
+        {% for field, errors in form.errors.items() %}
+            {% for error in errors %}
+                <li>{{ form[field].label.text }}: {{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+{% else %}
+    <table>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Username</td>
+            <td>{{ form.username.data }}</td>
+        </tr>
+        <tr>
+            <td>About</td>
+            <td>{{ form.about.data }}</td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td>{{ form.first_name.data }}</td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td>{{ form.last_name.data }}</td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>{{ form.email.data }}</td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td>{{ form.country.data }}</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>{{ form.address.data }}</td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td>{{ form.city.data }}</td>
+        </tr>
+        <tr>
+            <td>Region</td>
+            <td>{{ form.region.data }}</td>
+        </tr>
+        <tr>
+            <td>Postal Code</td>
+            <td>{{ form.postal_code.data }}</td>
+        </tr>
+    </table>
+{% endif %}
+</section>
+{% endblock %}

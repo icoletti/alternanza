@@ -2,6 +2,22 @@ from flask import Flask, render_template, request
 import os
 import sys
 import logging
+#from form import MyForm
+from flask_wtf import FlaskForm
+from wtforms import StringField, TextAreaField, SubmitField, FieldList
+from wtforms.validators import DataRequired, Email
+
+class MyForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    about = TextAreaField('About', validators=[DataRequired()])
+    first_name = StringField('First name', validators=[DataRequired()])
+    last_name = StringField('Last name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    country = FieldList('Country', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    region = StringField('Region', validators=[DataRequired()])
+    postal_code = StringField('Postal code', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 HOST = os.environ["HOST"]
 PORT = os.environ.get("PORT", 8703)
@@ -12,7 +28,17 @@ handler.setFormatter(logging.Formatter('%(name)s - %(levelname)s - %(message)s')
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
+
 app = Flask(__name__)
+app.secret_key = 'chiavesegreta1'
+
+@app.route("/upload/", methods = ['GET', 'POST'])
+def upload():
+   form = MyForm()
+   if form.validate_on_submit():
+      logger.info(request.form)
+      return render_template('result1.html', form=form)
+   return render_template('upload.html', form=form)
 
 @app.route("/")
 def home():
@@ -22,6 +48,7 @@ def home():
 def start():
     return render_template('landing.html')
 
+"""
 @app.route('/form/', methods=('GET', 'POST'))
 def submit():
     if request.method == "POST":
@@ -63,7 +90,7 @@ def submit():
       else:
          return render_template('result.html',error_message=None, username=username, about=about, first_name=first_name, last_name=last_name, email=email, country=country, address=address, city=city, region=region, postal_code=postal_code)
     return render_template('form.html')
-
+"""
 
 if __name__ == "__main__":
     """ run app """

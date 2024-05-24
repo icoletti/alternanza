@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+<h1>{% block title %}Form{% endblock %}</h1>
+{% block body %}
+<form method="POST" action="/">
+    
+    {{form.hidden_tag()}}
+        {{ form.username.label }}
+        {{ form.username(size=32) }}
+
+        {{ form.about.label }}
+        {{ form.about(cols=32, rows=4) }}
+
+        {{ form.first_name.label }}
+        {{ form.first_name(size=32) }}
+   
+        {{ form.last_name.label }}
+        {{ form.last_name(size=32) }}
+   
+        {{ form.email.label }}
+        {{ form.email(size=32) }}
+   
+        {{ form.country.label }}
+        {{ form.country(size=32) }}
+   
+        {{ form.address.label }}
+        {{ form.address(size=32) }}
+   
+        {{ form.city.label }}
+        {{ form.city(size=32) }}
+    
+        {{ form.region.label }}
+        {{ form.region(size=32) }}
+    
+        {{ form.postal_code.label }}
+        {{ form.postal_code(size=32) }}
+    
+    {{ form.submit() }}
+    <input type="submit" value="Go">
+</form>
+{% endblock %}
