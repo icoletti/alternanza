@@ -1,22 +1,8 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 import os
 import sys
 import logging
-#from form import MyForm
-from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, FieldList
-from wtforms.validators import DataRequired, Email
-
-class MyForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    about = TextAreaField('About', validators=[DataRequired()])
-    first_name = StringField('First name', validators=[DataRequired()])
-    last_name = StringField('Last name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired()])
-    address = StringField('Address', validators=[DataRequired()])
-    region = StringField('Region', validators=[DataRequired()])
-    postal_code = StringField('Postal code', validators=[DataRequired()])
-    submit = SubmitField('Submit')
+from form import MyForm
 
 HOST = os.environ["HOST"]
 PORT = os.environ.get("PORT", 8703)
@@ -37,6 +23,10 @@ def upload():
    if form.validate_on_submit():
       logger.info(request.form)
       return render_template('result1.html', form=form)
+   else:
+       for field, errors in form.errors.items():
+          for error in errors:
+             flash(f"Error in the {getattr(form, field).label.text} field - {error}", 'error')
    return render_template('upload.html', form=form)
 
 @app.route("/")
