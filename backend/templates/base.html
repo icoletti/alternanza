@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}{% endblock %} - Flaskr</title>
   <script src="{{ url_for('static', filename='js/tailwind.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -67,6 +68,11 @@
   <section class="m-6">
     {% block body %}{% endblock %}
   </section>
+
+  <input id="pi_input" type="range" min="0" max="3.14" step="any" />
+<p>Value: <output id="value"></output></p>
+
+
 </body>
 
 </html>
