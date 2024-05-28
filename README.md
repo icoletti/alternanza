@@ -139,7 +139,7 @@ docker compose up -d --build && docker compose logs -f --tail 50
 ```
 7. Accesso all'Applicazione
 Dopo aver avviato i container, l'applicazione Flask sarà accessibile all'indirizzo `http://localhost:8702`, dove `8702` è la porta specificata nel file .env. Ho aperto il mio browser e ho navigato verso questo URL per vedere l'applicazione in esecuzione.
-
+![img](/assets/form.png)
 ### Color Palette 
 [Link dei colori](https://colorhunt.co/palette/fffae6ff9f66ff5f00002379)
 ## Risorse aggiuntive
