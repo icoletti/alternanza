@@ -24,13 +24,13 @@ def validate_digits(form, field):
 
 class MyForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), my_length_check])
-    about = TextAreaField('About', validators=[DataRequired()])
-    first_name = StringField('First name', validators=[DataRequired()])
-    last_name = StringField('Last name', validators=[DataRequired()])
+    about = TextAreaField('Informazioni', validators=[DataRequired()])
+    first_name = StringField('Nome', validators=[DataRequired()])
+    last_name = StringField('Cognome', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
-    address = StringField('Address', validators=[DataRequired()])
-    region = StringField('Region', validators=[DataRequired()])
-    postal_code = StringField('Postal code', validators=[DataRequired(), postal_check, validate_digits])
+    address = StringField('Indirizzo', validators=[DataRequired()])
+    region = StringField('Provincia', validators=[DataRequired()])
+    postal_code = StringField('Codice postale', validators=[DataRequired(), postal_check, validate_digits])
     submit = SubmitField('Submit')
 
 
