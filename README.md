@@ -130,8 +130,8 @@ services:
       - ./backend:/usr/src/app
 ```
 5. Creazione dei template e css
-All'interno della cartella in cui si trova il mio file `app.py` ho creato altre due directory, `template` e `js`.
-Dentro template troviamo tutti i file html che "sviluppano" la mia applicazione. Dentro js, invece, ho ricopiato il contenuto di https://cdn.tailwindcss.com/3.4.3.
+All'interno della cartella in cui si trova il mio file `app.py` ho creato due directory `template` e `static`, quest'ultima contenente altre due directory, `style`  e `js`.
+Dentro `template` troviamo tutti i file html che "sviluppano" la mia applicazione. Dentro `js`, invece, ho ricopiato il contenuto di https://cdn.tailwindcss.com/3.4.3 nel mio file `tailwind.js`.
 6. Costruzione e Avvio dei Container
 Una volta creati tutti i file necessari, posso costruire e avviare i container utilizzando Docker Compose. Ho aperto il terminale nella directory contenente i file creati e ho eseguito i seguenti comandi:
 ```sh
