@@ -17,9 +17,11 @@
         extend: {
           colors: {
             resolutionblue: '#002379',
+            prussianblue: '#001854',
             blazeorange: '#FF5F00',
             atomictangerine: '#FF9F66',
-            earlydawn: '#FFFAE6'
+            earlydawn: '#FFFAE6',
+            chambray:'#324E93'
           }
         }
       }
@@ -28,9 +30,9 @@
 </head>
 
 <body class="bg-earlydawn font-snas">
-  <nav class="lg:px-16 px-4 bg-resolutionblue text-white flex flex-wrap items-center py-4 shadow-md">
+  <!--<nav class="lg:px-16 px-4 bg-resolutionblue text-white flex flex-wrap items-center py-4 shadow-md">
     <div class="flex-1 flex justify-between items-center">
-      <a href="{{ url_for('home' ) }}" class="text-xl">Home</a>
+      <a href="{{ url_for('home' ) }}" class="text-xl hover:underline decoration-atomictangerine decoration-2 rounded-md p-2">Home</a>
     </div>
     <label for="menu-toggle" class="pointer-cursor md:hidden block">
       <svg class="fill-current text-gray-900" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -44,13 +46,48 @@
     <div class="hidden md:flex md:items-center md:w-auto w-full" id="menu">
       <nav>
         <ul class="md:flex items-center justify-between text-base text-gray-200 pt-4 md:pt-0">
-          <li><a class="md:p-4 py-3 px-0 block" href="{{ url_for('upload' ) }}">Form</a></li>
-          <li><a class="md:p-4 py-3 px-0 block" href="{{ url_for('start' ) }}">About Us</a></li>
+          <li><a class="md:p-2 block hover:underline decoration-atomictangerine decoration-2 rounded-md" href="{{ url_for('upload' ) }}">Form</a></li>
+          <li><a class="md:p-2 block hover:underline decoration-atomictangerine decoration-2 rounded-md" href="{{ url_for('start' ) }}">About Us</a></li>
 
         </ul>
       </nav>
     </div>
+  </nav> -->
+  <nav class="bg-resolutionblue text-white">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="{{ url_for('home') }}" class="text-xl hover:underline decoration-atomictangerine decoration-2 rounded-md p-2">
+        Home
+      </a>
+      <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-chambray focus:outline-none focus:ring-2 focus:ring-chambray dark:text-gray-400 dark:hover:bg-prussianblue dark:focus:ring-prussianblue" aria-controls="navbar-default" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
+        </svg>
+      </button>
+      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+        <ul class="font-medium flex flex-col p-4 md:p-2 mt-4 border border-chambray rounded-lg bg-chambray md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-chambray dark:bg-prussianblue md:dark:bg-prussianblue dark:border-prussianblue">
+          <li>
+            <a href="{{ url_for('upload') }}" class="block py-2 px-3 text-gray-200 rounded hover:underline decoration-atomictangerine decoration-2 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-atomictangerine dark:hover:text-white md:dark:hover:bg-transparent">Form</a>
+          </li>
+          <li>
+            <a href="{{ url_for('start') }}" class="block py-2 px-3 text-gray-200 rounded hover:underline decoration-atomictangerine decoration-2 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 dark:text-white md:dark:hover:text-atomictangerine dark:hover:text-white md:dark:hover:bg-transparent">About Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </nav>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const button = document.querySelector('[data-collapse-toggle="navbar-default"]');
+    const menu = document.getElementById('navbar-default');
+  
+    button.addEventListener('click', function() {
+      menu.classList.toggle('hidden');
+    });
+  });
+  </script>
+  
   <section class="m-6">
     {% block body %}{% endblock %}
   </section>
