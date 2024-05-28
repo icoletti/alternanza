@@ -3,7 +3,7 @@
 {% block body %}
 <section>
     {% if form.errors %}
-    <ul class="text-blazeorange">
+    <ul class="text-cloudburst">
         {% for field, errors in form.errors.items() %}
         {% for error in errors %}
         <li>{{ form[field].label.text }}: {{ error }}</li>
@@ -51,7 +51,7 @@
     </table>
     <div class="mt-6 flex items-center justify-end gap-x-6">
         <a href="{{url_for('upload')}}"
-            class="btn btn-secondary rounded-md bg-blazeorange px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-atomictangerine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blazeorange">Back</a>
+            class="btn btn-secondary rounded-md bg-cloudburst px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-bluegray focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cloudburst">Back</a>
     </div>
     {% endif %}
 </section>
