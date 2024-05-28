@@ -5,12 +5,12 @@
     {% if form.errors %}
     <ul class="text-blazeorange">
         {% for field, errors in form.errors.items() %}
-            {% for error in errors %}
-                <li>{{ form[field].label.text }}: {{ error }}</li>
-            {% endfor %}
+        {% for error in errors %}
+        <li>{{ form[field].label.text }}: {{ error }}</li>
+        {% endfor %}
         {% endfor %}
     </ul>
-{% else %}
+    {% else %}
     <table class="container mx-auto">
         <tr>
             <th class="text-resolutionblue text-left text-xl">Field</th>
@@ -50,8 +50,9 @@
         </tr>
     </table>
     <div class="mt-6 flex items-center justify-end gap-x-6">
-        <a href="{{url_for('upload')}}" class="btn btn-secondary rounded-md bg-blazeorange px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-atomictangerine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blazeorange">Back</a>
+        <a href="{{url_for('upload')}}"
+            class="btn btn-secondary rounded-md bg-blazeorange px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-atomictangerine focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blazeorange">Back</a>
     </div>
-{% endif %}
+    {% endif %}
 </section>
 {% endblock %}
