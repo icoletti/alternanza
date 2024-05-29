@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash
 import os
 import sys
 import logging
-from form import MyForm
+from form import MyForm, calculate_commission
 
 HOST = os.environ["HOST"]
 PORT = os.environ.get("PORT", 8703)
@@ -22,7 +22,21 @@ def upload():
    form = MyForm()
    if form.validate_on_submit():
       logger.info(request.form)
-      return render_template('result1.html', form=form)
+      quantity = form.quantity.data
+      operation = form.operation.data
+      payment = form.payment.data
+      billing_info = form.billing_info.data
+      commission = calculate_commission(quantity, operation, payment, billing_info)
+      
+      data = {
+      "form": form,
+      "quantity": quantity,
+      "commission": commission,
+      "commission_percent": round((commission / quantity) * 100, 2),
+      "bestoption_image": 'assets/images/salvadanaio.svg'
+      }
+
+      return render_template('result1.html', **data)
    else:
        for field, errors in form.errors.items():
           for error in errors:

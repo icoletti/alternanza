@@ -10,80 +10,11 @@ Web application realizzata con Flask, Docker, Docker Compose e Tailwind CSS.
 1. Creazione del File Flask (`app.py` e `form.py`)
 Per iniziare ho creato una semplice applicazione Flask. Ho creato un file chiamato `app.py` e ho aggiunto il seguente codice:
 ```python
-from flask import Flask
-import os
-import sys
-import logging
-from form import MyForm
 
-HOST = os.environ["HOST"]
-PORT = os.environ.get("PORT", 8703)
-
-logger = logging.getLogger(__name__)
-handler = logging.StreamHandler(sys.stderr)
-handler.setFormatter(logging.Formatter('%(name)s - %(levelname)s - %(message)s'))
-logger.addHandler(handler)
-logger.setLevel(logging.INFO)
-
-
-app = Flask(__name__)
-@app.route("/upload/", methods = ['GET', 'POST'])
-def upload():
-   form = MyForm()
-   if form.validate_on_submit():
-      logger.info(request.form)
-      return render_template('result1.html', form=form)
-   else:
-       for field, errors in form.errors.items():
-          for error in errors:
-             flash(f"Error in the {getattr(form, field).label.text} field - {error}", 'error')
-   return render_template('upload.html', form=form)
-
-@app.route("/")
-def home():
-    return render_template('base.html')
-
-@app.route('/info/')
-def start():
-    return render_template('landing.html')
-
-if __name__ == "__main__":
-    """ run app """
-    app.run(host=HOST, port=PORT)
 ```
 Ho creato un file chiamato `form.py` e ho aggiunto il seguente codice:
 ```python
-from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, ValidationError
-from wtforms.validators import DataRequired, Email
 
-
-def my_length_check(form, field):
-    if len(field.data) > 4:
-        raise ValidationError('Field must be less than 4 characters')
-
-def postal_check(form, field):
-    try:
-        number = int(field.data)
-        if number > 999999:
-            raise ValidationError('Field must be less than 999999')
-    except ValueError:
-        raise ValidationError('It must be a 6-digit number')
-    
-def validate_digits(form, field):
-    if not field.data.isdigit():
-        raise ValidationError('It must be only composed by numbers')
-
-class MyForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), my_length_check])
-    about = TextAreaField('Informazioni', validators=[DataRequired()])
-    first_name = StringField('Nome', validators=[DataRequired()])
-    last_name = StringField('Cognome', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    address = StringField('Indirizzo', validators=[DataRequired()])
-    region = StringField('Provincia', validators=[DataRequired()])
-    postal_code = StringField('Codice postale', validators=[DataRequired(), postal_check, validate_digits])
-    submit = SubmitField('Submit')
 ```
 Le variabili `HOST`, e `PORT` si torvano all'interno del file .env creato.
 ```
@@ -139,7 +70,6 @@ docker compose up -d --build && docker compose logs -f --tail 50
 ```
 7. Accesso all'Applicazione
 Dopo aver avviato i container, l'applicazione Flask sarà accessibile all'indirizzo `http://localhost:8702`, dove `8702` è la porta specificata nel file .env. Ho aperto il mio browser e ho navigato verso questo URL per vedere l'applicazione in esecuzione.
-![img](/assets/form.png)
 ### Color Palette 
 [Link dei colori](https://colorhunt.co/palette/fffae6ff9f66ff5f00002379)
 ## Risorse aggiuntive

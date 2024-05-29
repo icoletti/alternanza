@@ -1,37 +1,36 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, ValidationError
-from wtforms.validators import DataRequired, Email
+from wtforms import RadioField, ValidationError, IntegerField
+from wtforms.validators import DataRequired, NumberRange
 
-
-def my_length_check(form, field):
-    '''controllo della lubghezza user'''
-    if len(field.data) > 4:
-        raise ValidationError('Field must be less than 4 characters')
-
-def postal_check(form, field):
-    '''controllo della lungezza del codice postale, deve essere di 6 cifre'''
-    try:
-        number = int(field.data)
-        if number > 999999:
-            raise ValidationError('Field must be less than 999999')
-    except ValueError:
-        raise ValidationError('It must be a 6-digit number')
-    
-def validate_digits(form, field):
-    '''controllo se ci sono solo cifre nel codice postale'''
-    if not field.data.isdigit():
-        raise ValidationError('It must be only composed by numbers')
 
 class MyForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), my_length_check])
-    about = TextAreaField('Informazioni', validators=[DataRequired()])
-    first_name = StringField('Nome', validators=[DataRequired()])
-    last_name = StringField('Cognome', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    address = StringField('Indirizzo', validators=[DataRequired()])
-    region = StringField('Provincia', validators=[DataRequired()])
-    postal_code = StringField('Codice postale', validators=[DataRequired(), postal_check, validate_digits])
-    submit = SubmitField('Submit')
+    operation = RadioField('Operazione', choices=[('opt1', 'Standard/tanum'), ('best_option', 'Ricorrente')], validators=[DataRequired()])
+    payment = RadioField('Pagamento', choices=[('cash', 'Contanti'), ('credit_card', 'Carte'), ('best_option', 'Bonifico')], validators=[DataRequired()])
+    billing_info = RadioField('Dati di Fatturazione', choices=[('manual', 'Manuale'), ('best_option', 'Spid')], validators=[DataRequired()])
+    quantity = IntegerField('Quantità', validators=[DataRequired(), NumberRange(min=100, max=100000, message='Quantità deve essere tra 100 e 100000')])
 
 
+def calculate_commission(quantity, operation, payment, billing_info):
+    base_commission_rate = 0.10
+    if 300 <= quantity < 1000:
+        base_commission_rate -= 0.01
+    elif 1000 <= quantity < 3000:
+        base_commission_rate -= 0.02
+    elif 3000 <= quantity < 10000:
+        base_commission_rate -= 0.03
+    elif 10000 <= quantity < 30000:
+        base_commission_rate -= 0.04
+    elif quantity >= 30000:
+        base_commission_rate -= 0.05
 
+
+    if operation == 'best_option':
+        base_commission_rate -= 0.01
+    if payment == 'best_option':
+        base_commission_rate -= 0.01
+    if billing_info == 'best_option':
+        base_commission_rate -= 0.01
+
+    commission = round(quantity * base_commission_rate, 2)
+    
+    return commission
