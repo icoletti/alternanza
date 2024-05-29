@@ -1,6 +1,22 @@
 from flask_wtf import FlaskForm
-from wtforms import RadioField, ValidationError, IntegerField
+from wtforms import RadioField, IntegerField
 from wtforms.validators import DataRequired, NumberRange
+import os
+import sys
+import logging
+
+logger = logging.getLogger(__name__)
+handler = logging.StreamHandler(sys.stderr)
+handler.setFormatter(logging.Formatter('%(name)s - %(levelname)s - %(message)s'))
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
+
+# Parametri definiti nel .env
+quantity_ranges =  list(map(int, os.environ.get("QUANTITY_RANGES").split(',')))
+commission_rates = list(map(float, os.environ.get("COMMISSION_RATES").split(',')))
+best_option_adjustment = float(os.environ.get("BEST_OPTION_ADJUSTMENT"))
+base_commission = float(os.environ.get("BASE_COMMISSION"))
 
 
 class MyForm(FlaskForm):
@@ -11,26 +27,17 @@ class MyForm(FlaskForm):
 
 
 def calculate_commission(quantity, operation, payment, billing_info):
-    base_commission_rate = 0.10
-    if 300 <= quantity < 1000:
-        base_commission_rate -= 0.01
-    elif 1000 <= quantity < 3000:
-        base_commission_rate -= 0.02
-    elif 3000 <= quantity < 10000:
-        base_commission_rate -= 0.03
-    elif 10000 <= quantity < 30000:
-        base_commission_rate -= 0.04
-    elif quantity >= 30000:
-        base_commission_rate -= 0.05
-
-
-    if operation == 'best_option':
-        base_commission_rate -= 0.01
-    if payment == 'best_option':
-        base_commission_rate -= 0.01
-    if billing_info == 'best_option':
-        base_commission_rate -= 0.01
-
-    commission = round(quantity * base_commission_rate, 2)
-    
-    return commission
+    for i, range_max in enumerate(quantity_ranges):
+        if quantity <= range_max:
+            logger.info(quantity)
+            logger.info(range_max)
+            logger.info(quantity<range_max)
+            commission = commission_rates[i]
+            if operation == 'best_option':
+                commission += best_option_adjustment
+            if payment == 'best_option':
+                commission += best_option_adjustment
+            if billing_info == 'best_option':
+                commission += best_option_adjustment
+            return (quantity * commission) / 100
+    return (commission_rates[-1]) / 100
