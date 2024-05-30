@@ -87,9 +87,9 @@ def upload():
 def home():
     return render_template('base.html')
 
-@app.route('/info/')
-def start():
-    return render_template('landing.html')
+@app.route('/error/')
+def error():
+    return render_template('error.html')
 
 if __name__ == "__main__":
     """ run app """

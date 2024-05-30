@@ -46,9 +46,6 @@
           <li>
             <a href="{{ url_for('upload') }}" class="block py-2 px-3 text-gray-200 rounded hover:underline decoration-cloudburst decoration-2 md:hover:bg-transparent md:border-0 md:hover:text-merino md:p-0 dark:text-white md:dark:hover:text-merino dark:hover:text-white md:dark:hover:bg-transparent dark:decoration-bluegray">Form</a>
           </li>
-          <li>
-            <a href="{{ url_for('start') }}" class="block py-2 px-3 text-gray-200 rounded hover:underline decoration-cloudburst decoration-2 md:hover:bg-transparent md:border-0 md:hover:text-merino md:p-0 dark:text-white md:dark:hover:text-merino dark:hover:text-white md:dark:hover:bg-transparent dark:decoration-bluegray">About Us</a>
-          </li>
         </ul>
       </div>
     </div>
@@ -65,6 +62,10 @@
   });
   </script>
   <section class="m-6">
+    <div class="flex justify-center m-6">
+      <img class="" src="{{ url_for('static', filename='images/logo.png') }}"></img>
+    </div>
+    
     {% block body %}{% endblock %}
   </section>
   

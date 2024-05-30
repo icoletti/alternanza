@@ -2,39 +2,71 @@
 <h1>{% block title %}Form{% endblock %}</h1>
 {% block body %}
 <h1 class="display flex justify-center font-semibold text-cloudburst text-5xl">Form</h1>
-<form class="mt-3" method="POST" action="{{ url_for('upload')}}">
-    <h1>{{ price }}</h1>
+<form class="m-3" method="POST" action="{{ url_for('upload')}}">
     {{ form.csrf_token }}
     {{form.hidden_tag()}}
     <div class="p-1.5">
         <ul>
-            <li>{{ form.operation.label(class="block text-gray-900 text-3xl mb-3") }}</li>
+            <li>{{ form.operation.label(class="block text-gray-900 text-3xl mb-2") }}</li>
+            <li>
+                {% for subfield in form.operation %}
+                <div class="flex items-center">
+                    {{ subfield(class="rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst sm:leading-6") }}
+                    <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                    {% if subfield.data == 'best_option' %}
+                    <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </li>
+            {% for error in form.operation.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
         </ul>
-        {{ form.operation(class="block rounded-md border-0 p-1.5  text-gray-900 text-2xl shadow-sm ring-1 ring-inset ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst sm:leading-6") }}
-        {% if form.operation.data == 'best_option' %}
-        <div>
-            <img src="{{ url_for('static', filename='images/salvadanaio.svg') }}" alt="Immagine Opzione Migliore">
-        </div>
-    {% endif %}
-        {% for error in form.operation.errors %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
     </div>
     <br>
     <div class="p-1.5">
-        {{ form.payment.label(class="block text-gray-900 text-3xl mb-2") }}
-        {{ form.payment(class="block rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst sm:leading-6") }}
-        {% for error in form.payment.errors %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
+        <ul>
+            <li>{{ form.payment.label(class="block text-gray-900 text-3xl mb-2") }}</li>
+            <li>
+                {% for subfield in form.payment %}
+                <div class="flex items-center">
+                    {{ subfield(class="rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst sm:leading-6") }}
+                    <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                    {% if subfield.data == 'best_option' %}
+                        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </li>
+            {% for error in form.payment.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </ul>
+        
+        
+        
     </div>
     <br>
     <div class="p-1.5">
-        {{ form.billing_info.label(class="block text-gray-900 text-3xl mb-2") }}
-        {{ form.billing_info(class="block rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst  sm:leading-6") }}
-        {% for error in form.billing_info.errors %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
+        <ul>
+            <li>{{ form.billing_info.label(class="block text-gray-900 text-3xl mb-2") }}</li>
+            <li>
+                {% for subfield in form.billing_info %}
+                <div class="flex items-center">
+                    {{ subfield(class="rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst sm:leading-6")}}
+                    <label for="{{subfield.id}}" class="ml-2">{{ subfield.label.text }}</label>
+                    {% if subfield.data == 'best_option' %}
+                        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </li>
+            {% for error in form.payment.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </ul>
+        
     </div>
     <br>
     <div class="p-1.5">
@@ -47,7 +79,7 @@
 
 
         <br>
-        <div class="mt-6 flex items-center justify-end gap-x-6">
+        <div class="mt-6 flex items-center justify-center">
             <button type="submit"
                 class="rounded-md bg-cloudburst px-3 py-2 text-3xl font-semibold text-white shadow-sm hover:bg-bluegray focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cloudburst"
                 value="Submit">Submit</button>
