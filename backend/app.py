@@ -32,17 +32,17 @@ def getprice():
     """getprice from kraken"""
 
     price_data = cache.get("price")
-    if price_data is not None:
+    if price_data is not None and isinstance(price_data, dict):
         logger.info("passo dalla cache")
         return price_data
     response = requests.get(KRAKEN_URL)
     if response.status_code == 200:
          try:
              data = response.json()
-             price = data["result"]["XXBTZEUR"][0][0]
+             price = float(data["result"]["XXBTZEUR"][0][0])
              cache.set("price", {"price": price})
              logger.info("aggiorno la cache")
-             return {"price": price}
+             return price
          except KeyError as e:
              return None, f"Errore nella struttura dei dati JSON: {str(e)}"
     else:
@@ -51,19 +51,29 @@ def getprice():
 @app.route("/upload/", methods = ['GET', 'POST'])
 def upload():
    form = MyForm()
+   price = getprice()
+   if price is None:
+        flash("Errore nel recupero del prezzo corrente. Riprova più tardi.", 'error')
+        return render_template('upload.html', form=form, price=None)
+   
    if form.validate_on_submit():
       logger.info(request.form)
       quantity = form.quantity.data
       operation = form.operation.data
       payment = form.payment.data
       billing_info = form.billing_info.data
-      commission = calculate_commission(quantity, operation, payment, billing_info)
-      
+      commission_eur = calculate_commission(quantity, operation, payment, billing_info, price)
+      purchase_btc = quantity / price
+      commission_btc = commission_eur / price
+
       data = {
       "form": form,
       "quantity": quantity,
-      "commission": commission,
-      "commission_percent": round((commission / quantity) * 100, 2),
+      "commission_eur": commission_eur,
+      "commission_btc": commission_btc,
+      "commission_percent": round((commission_eur / quantity) * 100, 2),
+      "price": price,
+      "purchase_btc": purchase_btc
       }
 
       return render_template('result1.html', **data)
@@ -71,7 +81,7 @@ def upload():
        for field, errors in form.errors.items():
           for error in errors:
              flash(f"Error in the {getattr(form, field).label.text} field - {error}", 'error')
-   return render_template('upload.html', form=form, price=getprice())
+   return render_template('upload.html', form=form, price=price)
 
 @app.route("/")
 def home():

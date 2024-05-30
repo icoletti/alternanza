@@ -25,8 +25,10 @@ class MyForm(FlaskForm):
     billing_info = RadioField('Dati di Fatturazione', choices=[('manual', 'Manuale'), ('best_option', 'Spid')], validators=[DataRequired()])
     quantity = IntegerField('Quantità', validators=[DataRequired(), NumberRange(min=100, max=100000, message='Quantità deve essere tra 100 e 100000')])
 
+def calculate_purchase_btc(quantity, price):
+    return (quantity / price)
 
-def calculate_commission(quantity, operation, payment, billing_info):
+def calculate_commission(quantity, operation, payment, billing_info, price):
     for i, range_max in enumerate(quantity_ranges):
         if quantity <= range_max:
             logger.info(quantity)
@@ -39,5 +41,6 @@ def calculate_commission(quantity, operation, payment, billing_info):
                 commission += best_option_adjustment
             if billing_info == 'best_option':
                 commission += best_option_adjustment
-            return (quantity * commission) / 100
+            return (quantity *commission) / 100
     return (commission_rates[-1]) / 100
+
