@@ -7,5 +7,10 @@ services:
     ports:
       - ${PORT}:${PORT}
     container_name: "container_flask"
+    restart: unless-stopped
     volumes:
       - ./backend:/usr/src/app
+  redis:
+    image: "redis:alpine"
+    restart: unless-stopped
+    container_name: "container_cache"

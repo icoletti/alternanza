@@ -4,6 +4,8 @@ import sys
 import requests
 import logging
 from form import MyForm, calculate_commission
+from config import Config
+from flask_caching import Cache
 
 KRAKEN_URL = "https://api.kraken.com/0/public/Trades?pair=xbteur"
 
@@ -21,15 +23,30 @@ quantity_ranges =  list(map(int, os.environ.get("QUANTITY_RANGES").split(',')))
 logger.info(quantity_ranges)
 
 app = Flask(__name__)
-app.secret_key = 'chiavesegreta1'
+app.config.from_object(Config)
+
+# add cache
+cache = Cache(app)
 
 def getprice():
     """getprice from kraken"""
+
+    price_data = cache.get("price")
+    if price_data is not None:
+        logger.info("passo dalla cache")
+        return price_data
     response = requests.get(KRAKEN_URL)
     if response.status_code == 200:
-        return response.json()["result"]["XXBTZEUR"][0][0]
+         try:
+             data = response.json()
+             price = data["result"]["XXBTZEUR"][0][0]
+             cache.set("price", {"price": price})
+             logger.info("aggiorno la cache")
+             return {"price": price}
+         except KeyError as e:
+             return None, f"Errore nella struttura dei dati JSON: {str(e)}"
     else:
-        return render_template('landing.html')
+        return None, f"Errore nella risposta della chiamata: {response.status_code}"
 
 @app.route("/upload/", methods = ['GET', 'POST'])
 def upload():
