@@ -65,6 +65,7 @@ def upload():
       commission_eur = calculate_commission(quantity, operation, payment, billing_info, price)
       purchase_btc = quantity / price
       commission_btc = commission_eur / price
+      actual_price = price + commission_eur
 
       data = {
       "form": form,
@@ -73,7 +74,9 @@ def upload():
       "commission_btc": "%.8f" % commission_btc,
       "commission_percent": round((commission_eur / quantity) * 100, 2),
       "price": price,
-      "purchase_btc": "%.8f" % purchase_btc
+      "purchase_btc": "%.8f" % purchase_btc,
+      "actual_price": "%.2f" % actual_price,
+      "selected_operation": operation
       }
 
       return render_template('result1.html', **data)
@@ -81,7 +84,7 @@ def upload():
        for field, errors in form.errors.items():
           for error in errors:
              flash(f"Error in the {getattr(form, field).label.text} field - {error}", 'error')
-   return render_template('upload.html', form=form, price=price)
+   return render_template('upload.html', form=form, price=price, selected_operation=form.operation.data)
 
 @app.route("/")
 def home():

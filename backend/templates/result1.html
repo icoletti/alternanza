@@ -3,7 +3,8 @@
 {% block body %}
 <h1 class="display flex justify-center font-semibold text-cloudburst text-5xl pb-3">Riepilogo</h1>
 <section class="mt-3">
-    <p>Prezzo corrente: {{ price }} euro per 1 Bitcoin</p>
+    
+    <p>Prezzo fissato: {{ actual_price }} euro per 1 Bitcoin</p>
     <p>Acquisto di {{ quantity }} euro = {{ purchase_btc }} Bitcoin</p>
     <p>Commissione: {{ commission_eur }} euro = {{ commission_btc }} Bitcoin ({{ commission_percent }}%)</p>
     <div class="mt-6 flex items-center justify-end gap-x-6">

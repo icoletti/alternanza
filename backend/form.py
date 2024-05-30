@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import RadioField, IntegerField
+from wtforms import RadioField, IntegerField, SelectField
 from wtforms.validators import DataRequired, NumberRange
 import os
 import sys
@@ -21,6 +21,8 @@ base_commission = float(os.environ.get("BASE_COMMISSION"))
 
 class MyForm(FlaskForm):
     operation = RadioField('Operazione', choices=[('opt1', 'Standard/tanum'), ('best_option', 'Ricorrente')], validators=[DataRequired()])
+    # best_option_option = RadioField('Operazioni Ricorrenti', choices=[('sub1', 'Bisettimanale'), ('sub2', 'Mensile'), ('sub3', 'Trimestrale')], validators=[DataRequired()])
+    # standard_option = RadioField('Operazioni Standard', choices=[('sub1', '1-2 giorni lavorativi'), ('sub2', '"Fast" (50 euro)')], validators=[DataRequired()])
     payment = RadioField('Pagamento', choices=[('cash', 'Contanti'), ('credit_card', 'Carte'), ('best_option', 'Bonifico')], validators=[DataRequired()])
     billing_info = RadioField('Dati di Fatturazione', choices=[('manual', 'Manuale'), ('best_option', 'Spid')], validators=[DataRequired()])
     quantity = IntegerField('Quantità', validators=[DataRequired(), NumberRange(min=100, max=100000, message='Quantità deve essere tra 100 e 100000')])
