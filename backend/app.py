@@ -32,7 +32,7 @@ def getprice():
     """getprice from kraken"""
 
     price_data = cache.get("price")
-    if price_data is not None and isinstance(price_data, dict):
+    if price_data is not None:
         logger.info("passo dalla cache")
         return price_data
     response = requests.get(KRAKEN_URL)
@@ -40,7 +40,7 @@ def getprice():
          try:
              data = response.json()
              price = float(data["result"]["XXBTZEUR"][0][0])
-             cache.set("price", {"price": price})
+             cache.set("price", price)
              logger.info("aggiorno la cache")
              return price
          except KeyError as e:
@@ -70,10 +70,10 @@ def upload():
       "form": form,
       "quantity": quantity,
       "commission_eur": commission_eur,
-      "commission_btc": commission_btc,
+      "commission_btc": "%.8f" % commission_btc,
       "commission_percent": round((commission_eur / quantity) * 100, 2),
       "price": price,
-      "purchase_btc": purchase_btc
+      "purchase_btc": "%.8f" % purchase_btc
       }
 
       return render_template('result1.html', **data)
