@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 <h1>{% block title %}Form{% endblock %}</h1>
 {% block body %}
-<h1 class="display flex justify-center font-semibold text-cloudburst text-5xl">Form</h1>
+<h1 class="display flex justify-center font-semibold text-bluegray text-5xl dark:text-cloudburst">Form</h1>
 <div class="flex items-center">
     <p> Approfitta delle scelte smart! Indicate con</p>
     <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
@@ -19,18 +19,17 @@
                 <div class="flex flex-col">
                     <div class="flex items-center">
                         {{ subfield(class="text-2xl shadow-sm ring-1 ring-inset sm:leading-6") }}
-                          <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
-                           {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data == 'best_option2'%}
-                          <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
-                          {% endif %}
+                        <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                        {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
+                        'best_option2'%}
+                        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
+                            alt="Best Option">
+                        {% endif %}
                     </div>
-                    <div class="text-gray-700 ml-5 mb-5">
+                    <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
                         {{ form.category_descriptions[subfield.data] }}
-                        
                     </div>
-                    
                 </div>
-                
                 {% endfor %}
             </li>
             {% for error in form.operation.errors %}
@@ -44,21 +43,23 @@
             <li>{{ form.payment.label(class="block text-gray-900 text-3xl mb-2") }}</li>
             <li>
                 {% for subfield in form.payment %}
-                <div  class="flex flex-col">
-                <div class="flex items-center">
-                    {{ subfield(class="rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset
-                    ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst
-                    sm:leading-6") }}
-                    <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
-                    {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data == 'best_option2'%}
-                    <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
-                    {% endif %}
-                </div>
-                <div class="text-gray-700 ml-5 mb-5">
+                <div class="flex flex-col">
+                    <div class="flex items-center">
+                        {{ subfield(class="rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset
+                        ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst
+                        sm:leading-6") }}
+                        <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                        {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
+                        'best_option2'%}
+                        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
+                            alt="Best Option">
+                        {% endif %}
+                    </div>
+                    <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
                         {{ form.category_descriptions[subfield.data] }}
                     </div>
                 </div>
-                
+
                 {% endfor %}
             </li>
             {% for error in form.payment.errors %}
@@ -76,33 +77,35 @@
             <li>
                 {% for subfield in form.billing_info %}
                 <div class="flex flex-col>
-                    <div class="flex items-center">
+                    <div class=" flex items-center">
                     {{ subfield(class="rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset
                     ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst
                     sm:leading-6")}}
                     <label for="{{subfield.id}}" class="ml-2">{{ subfield.label.text }}</label>
-                    
-                    {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data == 'best_option2'%}
-                        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
+
+                    {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
+                    'best_option2'%}
+                    <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
                         alt="Best Option">
                     {% endif %}
                 </div>
-                    <div  class="text-gray-700 ml-5 mb-5">
-                        {{ form.category_descriptions[subfield.data] }}
-                    </div>
+                <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+                    {{ form.category_descriptions[subfield.data] }}
                 </div>
-                
-                {% endfor %}
-            </li>
-            {% for error in form.payment.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </ul>
+    </div>
+
+    {% endfor %}
+    </li>
+    {% for error in form.payment.errors %}
+    <span style="color: red;">{{ error }}</span>
+    {% endfor %}
+    </ul>
 
     </div>
     <br>
     <div class="p-1.5">
         {{ form.quantity.label(class="block text-gray-900 text-3xl mb-2") }}
+        <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
         {{ form.quantity(class="block rounded-md border-0 p-1.5 text-gray-900 text-xl shadow-sm ring-1 ring-inset
         ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst sm:leading-6") }}
         {% for error in form.quantity.errors %}
@@ -114,7 +117,7 @@
     <br>
     <div class="mt-6 flex items-center justify-center">
         <button type="submit"
-            class="rounded-md bg-cloudburst px-3 py-2 text-3xl font-semibold text-white shadow-sm hover:bg-bluegray focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cloudburst"
+            class="rounded-md bg-bluegray px-3 py-2 text-3xl font-semibold text-white shadow-sm hover:bg-cloudburst focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cloudburst"
             value="Submit">Submit</button>
     </div>
 </form>
