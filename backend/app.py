@@ -78,6 +78,8 @@ def upload():
       "purchase_btc": "%.8f" % purchase_btc,
       "actual_price": "%.2f" % actual_price,
       "selected_operation": operation,
+      "selected_payment": payment,
+      "selected_billing_info": billing_info
       }
 
       return render_template('result1.html', **data)

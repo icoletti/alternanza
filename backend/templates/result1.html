@@ -2,8 +2,27 @@
 <h1>{% block title %}Riepilogo{% endblock %}</h1>
 {% block body %}
 <h1 class="display flex justify-center font-semibold text-cloudburst text-5xl pb-3">Riepilogo</h1>
+<section class="m-3">
+    <!-- Aggiungi questa parte per elencare tutte le scelte fatte -->
 <section class="mt-3">
-    
+    <h2 class="font-semibold text-cloudburst text-3xl p-3">Scelte Fatte</h2>
+    <ul>
+        <li>Operazione: {{ selected_operation }}</li>
+        <li>Pagamento: {{ payment }}</li>
+        <li>Dati di Fatturazione: {{ billing_info }}</li>
+    </ul>
+</section>
+
+<!-- Aggiungi questa parte per evidenziare le opzioni migliori -->
+<section class="mt-3">
+    <h2>Opzioni Migliori</h2>
+    <ul>
+        <li{% if selected_operation == 'best_option0' %} class="best-option"{% endif %}>Operazione: {{ selected_operation }}</li>
+        <li{% if payment == 'best_option1' %} class="best-option"{% endif %}>Pagamento: {{ payment }}</li>
+        <li{% if billing_info == 'best_option2' %} class="best-option"{% endif %}>Dati di Fatturazione: {{ billing_info }}</li>
+    </ul>
+</section>
+br
     <p>Prezzo fissato: {{ actual_price }} euro per 1 Bitcoin</p>
     <p>Acquisto di {{ quantity }} euro = {{ purchase_btc }} Bitcoin</p>
     <p>Commissione: {{ commission_eur }} euro = {{ commission_btc }} Bitcoin ({{ commission_percent }}%)</p>
