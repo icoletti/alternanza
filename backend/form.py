@@ -12,25 +12,20 @@ logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
 
-# Parametri definiti nel .env
+'''Parametri definiti nel .env'''
 quantity_ranges =  list(map(int, os.environ.get("QUANTITY_RANGES").split(',')))
 commission_rates = list(map(float, os.environ.get("COMMISSION_RATES").split(',')))
 best_option_adjustment = float(os.environ.get("BEST_OPTION_ADJUSTMENT"))
 base_commission = float(os.environ.get("BASE_COMMISSION"))
 
-# Form per le sottocategorie
-class SubCategoryForm(FlaskForm):
-    option = RadioField('Option', choices=[], validators=[InputRequired()])
+
 
 class MyForm(FlaskForm):
+    '''contenuto del mio form'''
     operation = RadioField('Operazione', choices=[('opt1', 'Standard/tanum'), ('best_option0', 'Ricorrente')], validators=[DataRequired()])
-    # best_option_option = RadioField('Operazioni Ricorrenti', choices=[('sub1', 'Bisettimanale'), ('sub2', 'Mensile'), ('sub3', 'Trimestrale')], validators=[DataRequired()])
-    # standard_option = RadioField('Operazioni Standard', choices=[('sub1', '1-2 giorni lavorativi'), ('sub2', '"Fast" (50 euro)')], validators=[DataRequired()])
     payment = RadioField('Pagamento', choices=[('cash', 'Contanti'), ('credit_card', 'Carte'), ('best_option1', 'Bonifico')], validators=[DataRequired()])
     billing_info = RadioField('Dati di Fatturazione', choices=[('manual', 'Manuale'), ('best_option2', 'Spid')], validators=[DataRequired()])
     quantity = IntegerField('Quantità', validators=[DataRequired(), NumberRange(min=100, max=100000, message='Quantità deve essere tra 100 e 100000')])
-    subcategories1 = FieldList(FormField(SubCategoryForm), min_entries=3, max_entries=3)
-    subcategories2 = FieldList(FormField(SubCategoryForm), min_entries=2, max_entries=2)
     category_descriptions = {
         'opt1': 'Descrizione breve per Standard',
         'best_option0': 'Descrizione breve per Ricorrente', 
@@ -43,9 +38,11 @@ class MyForm(FlaskForm):
 
 
 def calculate_purchase_btc(quantity, price):
+    '''metodo per calcolare le commissioni in BTC'''
     return (quantity / price)
 
 def calculate_commission(quantity, operation, payment, billing_info):
+    '''metodo per calcolare le commissioni in EURO'''
     for i, range_max in enumerate(quantity_ranges):
         if quantity <= range_max:
             logger.info(quantity)
