@@ -3,7 +3,7 @@ import os
 import sys
 import requests
 import logging
-from form import MyForm, calculate_commission, create_form
+from form import MyForm, calculate_commission
 from config import Config
 from flask_caching import Cache
 
@@ -63,7 +63,7 @@ def upload():
       operation = form.operation.data
       payment = form.payment.data
       billing_info = form.billing_info.data
-      commission_eur = calculate_commission(quantity, operation, payment, billing_info, price)
+      commission_eur = calculate_commission(quantity, operation, payment, billing_info)
       purchase_btc = quantity / price
       commission_btc = commission_eur / price
       actual_price = price + commission_eur

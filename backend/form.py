@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import RadioField, IntegerField, SelectField, FieldList, FormField
+from wtforms import RadioField, IntegerField, SelectField, FieldList, FormField, StringField
 from wtforms.validators import DataRequired, NumberRange, InputRequired
 import os
 import sys
@@ -31,28 +31,21 @@ class MyForm(FlaskForm):
     quantity = IntegerField('Quantità', validators=[DataRequired(), NumberRange(min=100, max=100000, message='Quantità deve essere tra 100 e 100000')])
     subcategories1 = FieldList(FormField(SubCategoryForm), min_entries=3, max_entries=3)
     subcategories2 = FieldList(FormField(SubCategoryForm), min_entries=2, max_entries=2)
-    def __init__(self, *args, **kwargs):
-        super(MyForm, self).__init__(*args, **kwargs)
-        self.category_descriptions = {
-            'opt1': 'Descrizione breve per Categoria 1',
-            'best_option0': 'Descrizione breve per Categoria 2',
-            'cash': 'Descrizione breve per Categoria 2',
-            'credit_card': 'Descrizione breve per Categoria 2',
-            'best_option1': 'Descrizione breve per Categoria 2',
-            'manual': 'Descrizione breve per Categoria 2',
-            'best_option2': 'Descrizione breve per Categoria 2',
-        }
+    category_descriptions = {
+        'opt1': 'Descrizione breve per Standard',
+        'best_option0': 'Descrizione breve per Ricorrente', 
+        'cash': 'Descrizione breve per Contanti',
+        'credit_card': 'Descrizione breve per Carte', 
+        'best_option1': 'Descrizione breve per Bonifico',
+        'manual': 'Descrizione breve per Manuale', 
+        'best_option2': 'Descrizione breve per Spid',
+    }
 
-
-
-def create_form():
-    form = MyForm()
-    
 
 def calculate_purchase_btc(quantity, price):
     return (quantity / price)
 
-def calculate_commission(quantity, operation, payment, billing_info, price):
+def calculate_commission(quantity, operation, payment, billing_info):
     for i, range_max in enumerate(quantity_ranges):
         if quantity <= range_max:
             logger.info(quantity)
