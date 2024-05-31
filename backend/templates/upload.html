@@ -18,7 +18,7 @@
                 {% for subfield in form.operation %}
                 <div class="flex flex-col">
                     <div class="flex items-center">
-                        {{ subfield(class="text-2xl shadow-sm ring-1 ring-inset sm:leading-6") }}
+                        {{ subfield(class="text-2xl sm:leading-6") }}
                         <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                         {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
                         'best_option2'%}
@@ -45,9 +45,7 @@
                 {% for subfield in form.payment %}
                 <div class="flex flex-col">
                     <div class="flex items-center">
-                        {{ subfield(class="rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset
-                        ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst
-                        sm:leading-6") }}
+                        {{ subfield(class="sm:leading-6") }}
                         <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                         {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
                         'best_option2'%}
@@ -78,9 +76,7 @@
                 {% for subfield in form.billing_info %}
                 <div class="flex flex-col>
                     <div class=" flex items-center">
-                    {{ subfield(class="rounded-md border-0 p-1.5 text-gray-900 text-2xl shadow-sm ring-1 ring-inset
-                    ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst
-                    sm:leading-6")}}
+                    {{ subfield(class="sm:leading-6")}}
                     <label for="{{subfield.id}}" class="ml-2">{{ subfield.label.text }}</label>
 
                     {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
