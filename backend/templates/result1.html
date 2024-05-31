@@ -29,7 +29,8 @@
             {% endfor %}
         </ul>
     </section>
-
+    <br>
+    <br>
     <!-- opzioni migliori -->
     <section class="mt-3">
         <ul>
@@ -62,8 +63,8 @@
     <br>
     <h2 class="font-semibold text-bluegray text-3xl dark:text-cloudburst">Titoletto non so</h2>
     <p>Prezzo fissato: {{ actual_price }} euro per 1 Bitcoin</p>
-    <p>Acquisto di {{ quantity }} euro = {{ purchase_btc }} Bitcoin</p>
-    <p>Commissione: {{ commission_eur }} euro = {{ commission_btc }} Bitcoin ({{ commission_percent }}%)</p>
+    <p>Acquisto di {{ quantity }} euro = {{ actual_purchase }} Bitcoin</p>
+    <p>Hai un risparmio del {{savings_percentange}}% sulle commissioni!</p>
     <div class="mt-6 flex items-center justify-end gap-x-6">
         <a href="{{url_for('upload')}}"
             class="btn btn-secondary rounded-md bg-cloudburst px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-bluegray focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cloudburst">Back</a>

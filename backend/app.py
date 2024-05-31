@@ -3,7 +3,7 @@ import os
 import sys
 import requests
 import logging
-from form import MyForm, calculate_commission
+from form import MyForm, calculate_commission, calculate_savings
 from config import Config
 from flask_caching import Cache
 
@@ -67,6 +67,8 @@ def upload():
       purchase_btc = quantity / price
       commission_btc = commission_eur / price
       actual_price = price + commission_eur
+      actual_purchase = purchase_btc - commission_btc
+      savings_percentange = calculate_savings(quantity, operation, payment, billing_info)
 
       data = {
       "form": form,
@@ -77,6 +79,8 @@ def upload():
       "price": price,
       "purchase_btc": "%.8f" % purchase_btc,
       "actual_price": "%.2f" % actual_price,
+      "actual_purchase": "%.8f" % actual_purchase,
+      "savings_percentange": savings_percentange,
       "selected_operation": operation,
       "selected_payment": payment,
       "selected_billinginfo": billing_info

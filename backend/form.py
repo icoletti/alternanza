@@ -58,3 +58,11 @@ def calculate_commission(quantity, operation, payment, billing_info):
             return (quantity *commission) / 100
     return (commission_rates[-1]) / 100
 
+def calculate_savings(quantity, operation, payment, billing_info):
+    actual_commission = (calculate_commission(quantity, operation, payment, billing_info) / quantity) * 100
+    logger.info(actual_commission)
+    standard_commission = base_commission
+    logger.info(standard_commission)
+    savings = standard_commission - actual_commission
+    savings_percentage = (savings / standard_commission)*100 if standard_commission > 0 else 0
+    return savings_percentage
