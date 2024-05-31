@@ -3,7 +3,7 @@ import os
 import sys
 import requests
 import logging
-from form import MyForm, calculate_commission
+from form import MyForm, calculate_commission, create_form
 from config import Config
 from flask_caching import Cache
 
@@ -52,6 +52,7 @@ def getprice():
 def upload():
    form = MyForm()
    price = getprice()
+   
    if price is None:
         flash("Errore nel recupero del prezzo corrente. Riprova più tardi.", 'error')
         return render_template('upload.html', form=form, price=None)
@@ -76,7 +77,7 @@ def upload():
       "price": price,
       "purchase_btc": "%.8f" % purchase_btc,
       "actual_price": "%.2f" % actual_price,
-      "selected_operation": operation
+      "selected_operation": operation,
       }
 
       return render_template('result1.html', **data)
@@ -84,7 +85,7 @@ def upload():
        for field, errors in form.errors.items():
           for error in errors:
              flash(f"Error in the {getattr(form, field).label.text} field - {error}", 'error')
-   return render_template('upload.html', form=form, price=price, selected_operation=form.operation.data)
+   return render_template('upload.html', form=form, price=price)
 
 @app.route("/")
 def home():
