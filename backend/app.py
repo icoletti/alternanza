@@ -72,6 +72,9 @@ def upload():
       actual_price = price + commission_eur
       actual_purchase = purchase_btc - commission_btc
       savings_percentange = calculate_savings(quantity, operation, payment, billing_info)
+      options = ['operation', 'quantity', 'payment']
+      smart_options = ['best_option0', 'best_option1', 'best_option2']
+      smart_option_found = any(option in smart_options for option in options)
 
       data = {
       "form": form,
@@ -89,7 +92,10 @@ def upload():
       # "recurring": operation_recurring,
       "selected_payment": payment,
       "selected_billinginfo": billing_info,
-      "desc": DESCRIZIONE
+      "desc": DESCRIZIONE,
+      "options": ['selected_operation','selected_billinginfo', 'selected_payment'],
+      "smart_options": smart_options,
+      "smart_option_found": smart_option_found
       }
 
       return render_template('result1.html', **data)

@@ -32,16 +32,17 @@
     </section>
     <br>
     <br>
-    <!-- opzioni migliori -->
-    <section class="mt-3">
+    <!-- opzioni migliori 
+    <section  class="mt-3">
+        <h2 class="font-semibold text-bluegray text-3xl dark:text-cloudburst">Opzioni smart selezionate</h2>
         <ul>
-            <h2 class="font-semibold text-bluegray text-3xl dark:text-cloudburst">Opzioni smart selezionate</h2>
+            {% set smart_option_found = false %}
             {% for choice in [('Operazione', selected_operation), ('Pagamento', selected_payment), ('Dati di
             Fatturazione', selected_billinginfo)] %}
             {% if choice[1] in ['best_option0', 'best_option1' , 'best_option2' ]%}
+            {% set smart_option_found = true %}
             <div class="flex flex-col">
-                <li{% if choice[1] in ['best_option0', 'best_option1' , 'best_option2' ] %}
-                    class="flex items-center text-bluegray dark:text-cloudburst" {% endif %}>
+                <li class="flex items-center text-bluegray dark:text-cloudburst" {% endif %}>
                     {{ choice[0] }}:
                     {% if choice[0] == 'Operazione' %}
                     {% if choice[1] == 'best_option0' %} Ricorrente {% endif %}
@@ -55,14 +56,17 @@
                     %}
                     </li>
             </div>
-            {% endif %}
             {% endfor %}
+            {% if not smart_option_found %}
+                <p>nessuna opzione smart selezionata</p>
+            {% endif %}
         </ul>
-    </section>
+    </section>-->
+
     <br>
     <br>
     <br>
-    <h2 class="font-semibold text-bluegray text-3xl dark:text-cloudburst">Titoletto non so</h2>
+    <h2 class="font-semibold text-bluegray text-3xl dark:text-cloudburst">Stima</h2>
     <p>Prezzo fissato: {{ actual_price }} euro per 1 Bitcoin</p>
     <p>{{ desc }}</p>
     <p>Acquisto di {{ quantity }} euro = {{ actual_purchase }} Bitcoin</p>
@@ -72,4 +76,6 @@
             class="btn btn-secondary rounded-md bg-cloudburst px-3 py-2 text-base font-semibold text-white shadow-sm hover:bg-bluegray focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cloudburst">Back</a>
     </div>
 </section>
+
+
 {% endblock %}
