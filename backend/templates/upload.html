@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 <h1>{% block title %}Form{% endblock %}</h1>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 {% block body %}
 <h1 class="display flex justify-center font-semibold text-bluegray text-5xl dark:text-cloudburst">Form</h1>
 <div class="flex items-center">
@@ -11,7 +16,7 @@
     {{ form.csrf_token }}
     {{ form.hidden_tag() }}
 
-    <div class="p-1.5">
+    <div class="p-1.5" id="operazione">
         <ul>
             <li>{{ form.operation.label(class="block text-gray-900 text-3xl mb-2") }}</li>
             <li>
@@ -36,10 +41,11 @@
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </ul>
-        {% if form.operation.data == 'standard' %}
-        <div  class="p-1.5 ml-5" id="sub-options-standard">
-            <ul>
-                <li>{{ form.operation_sub.label(class="block text-gray-900 text-2xl mb-2") }}</li>
+    </div>
+
+    <div  class="p-1.5 ml-7 hidden" id="sub-options-standard">
+        <ul>
+            <li>{{ form.operation_sub.label(class="block text-gray-900 text-2xl mb-2") }}</li>
                 <li>
                     {% for subfield in form.operation_sub %}
                     {% if subfield.data in ['opt1', 'opt2'] %}
@@ -61,9 +67,7 @@
             </ul>
         </div>
         
-
-        {% elif form.operation.data == 'best_option0' %}
-        <div class="p-1.5 ml-5" id="sub-options-recurring">
+        <div class="p-1.5 ml-7 hidden" id="sub-options-best">
             <ul>
                 <li>{{ form.operation_sub.label(class="block text-gray-900 text-2xl mb-2") }}</li>
                 <li>
@@ -86,9 +90,8 @@
                 {% endfor %}
             </ul>
         </div>
-        {% endif %}
-    </div>
-    </div>
+        
+
     <br>
     <div class="p-1.5">
         <ul>
@@ -183,6 +186,33 @@
     {% endwith %}
 </div>
 -->
+
+<script>
+    function toggleSubOperations() {
+        var mainElement = document.querySelector('input[name="operation"]:checked');
+        var standardSubOptions = document.getElementById('sub-options-standard');
+        var bestSubOptions = document.getElementById('sub-options-best');
+
+        if (!mainElement) {
+            standardSubOptions.classList.add('hidden');
+            bestSubOptions.classList.add('hidden');
+            return;
+        }
+
+        if (mainElement.value === 'standard') {
+            standardSubOptions.classList.remove('hidden');
+            bestSubOptions.classList.add('hidden');
+        } else if (mainElement.value === 'best_option0') {
+            bestSubOptions.classList.remove('hidden');
+            standardSubOptions.classList.add('hidden');
+        } else {
+            standardSubOptions.classList.add('hidden');
+            bestSubOptions.classList.add('hidden');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', toggleSubOperations);
+</script>
 
     {% endblock %}
 

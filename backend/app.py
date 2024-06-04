@@ -12,6 +12,8 @@ KRAKEN_URL = "https://api.kraken.com/0/public/Trades?pair=xbteur"
 HOST = os.environ["HOST"]
 PORT = os.environ.get("PORT", 8703)
 
+DESCRIZIONE = os.environ.get("DESCRIZIONE_PREZZO", "lol")
+
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stderr)
 handler.setFormatter(logging.Formatter('%(name)s - %(levelname)s - %(message)s'))
@@ -86,7 +88,8 @@ def upload():
       "selected_sub": operation_sub,
       # "recurring": operation_recurring,
       "selected_payment": payment,
-      "selected_billinginfo": billing_info
+      "selected_billinginfo": billing_info,
+      "desc": DESCRIZIONE
       }
 
       return render_template('result1.html', **data)
