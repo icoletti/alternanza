@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import RadioField, IntegerField, SelectField, FieldList, FormField, StringField
-from wtforms.validators import DataRequired, NumberRange, InputRequired
+from wtforms import RadioField, IntegerField
+from wtforms.validators import DataRequired, NumberRange
 import os
 import sys
 import logging
@@ -23,9 +23,6 @@ base_commission = float(os.environ.get("BASE_COMMISSION"))
 class MyForm(FlaskForm):
     '''contenuto del mio form'''
     operation = RadioField('Operazione', choices=[('standard', 'Standard/tanum'), ('best_option0', 'Ricorrente')], validators=[DataRequired()])
-    #operation_stand = RadioField('Standard', choices=[('opt1', '1')])
-    #operation_re = RadioField ('Ricorrente', choices=[('opt1, 1'), ('opt2', '2')])
-    #operation_sub = RadioField('Operazione Sottoscelta', choices=[(operation_stand, operation_stand), (operation_re, operation_re)], validators=[DataRequired()])
     operation_sub = RadioField('Operazione Sottoscelta', choices=[('opt1', 'standard'), ('opt2', '"Fast"'), ('opt3', 'Bisettimanale'), ('opt4', 'Mensile'), ('opt5', 'Trimestrale')], validators=[DataRequired()])
     payment = RadioField('Pagamento', choices=[('cash', 'Contanti'), ('credit_card', 'Carte'), ('best_option1', 'Bonifico')], validators=[DataRequired()])
     billing_info = RadioField('Dati di Fatturazione', choices=[('manual', 'Manuale'), ('best_option2', 'Spid')], validators=[DataRequired()])

@@ -51,7 +51,7 @@
                     {% if subfield.data in ['opt1', 'opt2'] %}
                         <div class="flex flex-col">
                             <div class="flex items-center">
-                                {{ subfield(class="text-2xl shadow-sm ring-1 ring-inset sm:leading-6") }}
+                                {{ subfield(class="text-2xl sm:leading-6") }}
                                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                             </div>
                         <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
@@ -75,7 +75,7 @@
                     {% if subfield.data in ['opt3', 'opt4', 'opt5']%}
                         <div class="flex flex-col">
                             <div class="flex items-center">
-                                {{ subfield(class="text-2xl shadow-sm ring-1 ring-inset sm:leading-6") }}
+                                {{ subfield(class="text-2xl  sm:leading-6") }}
                                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                             </div>
                         <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
@@ -173,20 +173,6 @@
     </div>
     <br>
 </form>
-
-<!--
-<div>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <ul>
-        {% for category, message in messages %}
-        <li style="color: red;">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-</div>
--->
 
 <script>
     function toggleSubOperations() {
