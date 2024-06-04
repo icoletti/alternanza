@@ -61,6 +61,7 @@ def upload():
       logger.info(request.form)
       quantity = form.quantity.data
       operation = form.operation.data
+      operation_sub = form.operation_sub.data
       payment = form.payment.data
       billing_info = form.billing_info.data
       commission_eur = calculate_commission(quantity, operation, payment, billing_info)
@@ -80,8 +81,10 @@ def upload():
       "purchase_btc": "%.8f" % purchase_btc,
       "actual_price": "%.2f" % actual_price,
       "actual_purchase": "%.8f" % actual_purchase,
-      "savings_percentange": savings_percentange,
+      "savings_percentange":"%.2f" %  savings_percentange,
       "selected_operation": operation,
+      "selected_sub": operation_sub,
+      # "recurring": operation_recurring,
       "selected_payment": payment,
       "selected_billinginfo": billing_info
       }

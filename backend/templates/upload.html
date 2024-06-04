@@ -18,7 +18,7 @@
                 {% for subfield in form.operation %}
                 <div class="flex flex-col">
                     <div class="flex items-center">
-                        {{ subfield(class="text-2xl sm:leading-6") }}
+                        {{ subfield(class="text-2xl sm:leading-6", onchange="toggleSubOperations()") }}
                         <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                         {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
                         'best_option2'%}
@@ -36,6 +36,58 @@
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </ul>
+        {% if form.operation.data == 'standard' %}
+        <div  class="p-1.5 ml-5" id="sub-options-standard">
+            <ul>
+                <li>{{ form.operation_sub.label(class="block text-gray-900 text-2xl mb-2") }}</li>
+                <li>
+                    {% for subfield in form.operation_sub %}
+                    {% if subfield.data in ['opt1', 'opt2'] %}
+                        <div class="flex flex-col">
+                            <div class="flex items-center">
+                                {{ subfield(class="text-2xl shadow-sm ring-1 ring-inset sm:leading-6") }}
+                                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                            </div>
+                        <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+                            {{ form.category_descriptions[subfield.data] }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </li>
+                {% for error in form.operation_sub.errors %}
+                <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </ul>
+        </div>
+        
+
+        {% elif form.operation.data == 'best_option0' %}
+        <div class="p-1.5 ml-5" id="sub-options-recurring">
+            <ul>
+                <li>{{ form.operation_sub.label(class="block text-gray-900 text-2xl mb-2") }}</li>
+                <li>
+                    {% for subfield in form.operation_sub %}
+                    {% if subfield.data in ['opt3', 'opt4', 'opt5']%}
+                        <div class="flex flex-col">
+                            <div class="flex items-center">
+                                {{ subfield(class="text-2xl shadow-sm ring-1 ring-inset sm:leading-6") }}
+                                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                            </div>
+                        <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+                            {{ form.category_descriptions[subfield.data] }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </li>
+                {% for error in form.operation_sub.errors %}
+                <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
     </div>
     <br>
     <div class="p-1.5">
@@ -132,5 +184,7 @@
 </div>
 -->
 
+    {% endblock %}
 
-{% endblock %}
+
+

@@ -22,13 +22,22 @@ base_commission = float(os.environ.get("BASE_COMMISSION"))
 
 class MyForm(FlaskForm):
     '''contenuto del mio form'''
-    operation = RadioField('Operazione', choices=[('opt1', 'Standard/tanum'), ('best_option0', 'Ricorrente')], validators=[DataRequired()])
+    operation = RadioField('Operazione', choices=[('standard', 'Standard/tanum'), ('best_option0', 'Ricorrente')], validators=[DataRequired()])
+    #operation_stand = RadioField('Standard', choices=[('opt1', '1')])
+    #operation_re = RadioField ('Ricorrente', choices=[('opt1, 1'), ('opt2', '2')])
+    #operation_sub = RadioField('Operazione Sottoscelta', choices=[(operation_stand, operation_stand), (operation_re, operation_re)], validators=[DataRequired()])
+    operation_sub = RadioField('Operazione Sottoscelta', choices=[('opt1', 'standard'), ('opt2', '"Fast"'), ('opt3', 'Bisettimanale'), ('opt4', 'Mensile'), ('opt5', 'Trimestrale')], validators=[DataRequired()])
     payment = RadioField('Pagamento', choices=[('cash', 'Contanti'), ('credit_card', 'Carte'), ('best_option1', 'Bonifico')], validators=[DataRequired()])
     billing_info = RadioField('Dati di Fatturazione', choices=[('manual', 'Manuale'), ('best_option2', 'Spid')], validators=[DataRequired()])
     quantity = IntegerField('Quantità', validators=[DataRequired(), NumberRange(min=100, max=100000, message='Quantità deve essere tra 100 e 100000')])
     category_descriptions = {
-        'opt1': 'Descrizione breve per Standard',
+        'standard': 'Descrizione breve per Standard',
         'best_option0': 'Descrizione breve per Ricorrente', 
+        'opt1': '1-2 giorni lavorativi',
+        'opt2': 'Costo aggiuntivo di 50 euro',
+        'opt3': 'Descrizione breve per Opzione 3',
+        'opt4': 'Descrizione breve per Opzione 4',
+        'opt5': 'Descrizione breve per Opzione 5',
         'cash': 'Descrizione breve per Contanti',
         'credit_card': 'Descrizione breve per Carte', 
         'best_option1': 'Descrizione breve per Bonifico',

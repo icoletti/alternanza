@@ -7,16 +7,17 @@
     <section class="mt-3">
         <h2 class="font-semibold text-bluegray text-3xl dark:text-cloudburst">Scelte Fatte</h2>
         <ul>
-            {% for choice in [('Operazione', selected_operation), ('Pagamento', selected_payment), ('Dati di
+            {% for choice in [('Operazione', selected_operation), ('Sottoscelta operazione', selected_sub), ('Pagamento', selected_payment), ('Dati di
             Fatturazione', selected_billinginfo)] %}
             <div class="flex flex-col">
                 <li{% if choice[1] in ['best_option0', 'best_option1' , 'best_option2' ] %} class="flex items-center" {%
                     endif %}>{{ choice[0] }}:
                     {% if choice[0] == 'Operazione' %}
                     {% if choice[1] == 'opt1' %} Standard/tanum {% else %} Ricorrente {% endif %}
+                    {% elif choice[0] == 'Sottoscelta operazione' %}
+                    {% if choice[1] == 'opt1' %} Standard {% elif choice[1] == 'opt2' %} "Fast" {% elif choice[1] == 'opt3' %} Bisettimanale {% elif choice[1] == 'opt4' %} Mensile {% else %} Trimestrale {% endif %}
                     {% elif choice[0] == 'Pagamento' %}
-                    {% if choice[1] == 'cash' %} Contanti {% elif choice[1] == 'credit_card' %} Carte {% else %}
-                    Bonifico {% endif %}
+                    {% if choice[1] == 'cash' %} Contanti {% elif choice[1] == 'credit_card' %} Carte {% else %}Bonifico {% endif %}
                     {% else %}
                     {% if choice[1] == 'manual' %} Manuale {% else %} Spid {% endif %}
                     {% endif %}
