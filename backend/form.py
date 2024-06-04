@@ -11,14 +11,11 @@ handler.setFormatter(logging.Formatter('%(name)s - %(levelname)s - %(message)s')
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
 
-
 '''Parametri definiti nel .env'''
 quantity_ranges =  list(map(int, os.environ.get("QUANTITY_RANGES").split(',')))
 commission_rates = list(map(float, os.environ.get("COMMISSION_RATES").split(',')))
 best_option_adjustment = float(os.environ.get("BEST_OPTION_ADJUSTMENT"))
 base_commission = float(os.environ.get("BASE_COMMISSION"))
-
-
 
 class MyForm(FlaskForm):
     '''contenuto del mio form'''
@@ -41,7 +38,6 @@ class MyForm(FlaskForm):
         'manual': 'Descrizione breve per Manuale', 
         'best_option2': 'Descrizione breve per Spid',
     }
-
 
 def calculate_purchase_btc(quantity, price):
     '''metodo per calcolare le commissioni in BTC'''

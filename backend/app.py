@@ -67,10 +67,10 @@ def upload():
       payment = form.payment.data
       billing_info = form.billing_info.data
       commission_eur = calculate_commission(quantity, operation, payment, billing_info)
+      actual_price = price + commission_eur
       purchase_btc = quantity / price
       commission_btc = commission_eur / price
-      actual_price = price + commission_eur
-      actual_purchase = purchase_btc - commission_btc
+      actual_purchase = purchase_btc #- commission_btc
       savings_percentange = calculate_savings(quantity, operation, payment, billing_info)
       options = ['operation', 'quantity', 'payment']
       smart_options = ['best_option0', 'best_option1', 'best_option2']
@@ -89,7 +89,6 @@ def upload():
       "savings_percentange":"%.2f" %  savings_percentange,
       "selected_operation": operation,
       "selected_sub": operation_sub,
-      # "recurring": operation_recurring,
       "selected_payment": payment,
       "selected_billinginfo": billing_info,
       "desc": DESCRIZIONE,
