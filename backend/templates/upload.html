@@ -118,12 +118,12 @@
             <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
             <input type="number" id="quantity-input" name="quantity" min="100" max="100000" step="100"
                 value="{{ form.quantity.data if form.quantity.data else 100 }}"
-                class="block w-full rounded-md border-0 p-1.5 text-gray-900 text-lg shadow-sm ring-1 ring-inset ring-bluegray dark:ring-cloudburst placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst"
+                class="block rounded-md border-0 p-1.5 text-gray-900 text-lg shadow-sm ring-1 ring-inset ring-bluegray dark:ring-cloudburst placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst"
                 oninput="updateSliderValue(this.value)">
             <input type="range" id="quantity-slider" list="markers" min="100" max="100000" step="100"
                 value="{{ form.quantity.data if form.quantity.data else 100 }}"
                 oninput="updateQuantityValue(this.value)"
-                class="w-full h-2 bg-bluegray rounded-lg cursor-pointer dark:bg-cloudburst">
+                class="w-full h-2 bg-bluegray outline-none cursor-pointer dark:bg-cloudburst">
             <datalist id="markers" class="flex justify-between w-full">
                 <option value="100"></option>
                 <option value="300"></option>
