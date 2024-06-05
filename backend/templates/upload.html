@@ -5,6 +5,7 @@
         display: none;
     }
 </style>
+<script src="{{ url_for('static', filename='js/slider.js') }}"></script>
 {% block body %}
 <div class="p-4 md:p-8">
     <h1 class="text-center font-semibold text-bluegray-900 text-2xl md:text-5xl dark:text-cloudburst mb-6">Form</h1>
@@ -53,6 +54,7 @@
             {% for error in form.operation_sub.errors %}
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
+            <br>
         </div>
 
         <div class="ml-7 hidden" id="sub-options-best">
@@ -71,8 +73,9 @@
             {% for error in form.operation_sub.errors %}
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
+            <br>
         </div>
-        <br>
+        
         <div class="mb-4">
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.payment.label }}</label>
             {% for subfield in form.payment %}
@@ -149,13 +152,7 @@
 
 
 <script>
-    function updateQuantityValue(val) {
-        document.getElementById('quantity-input').value = val;
-    }
-
-    function updateSliderValue(val) {
-        document.getElementById('quantity-slider').value = val;
-    }
+    
 
     function toggleSubOperations() {
         var mainElement = document.querySelector('input[name="operation"]:checked');
@@ -182,5 +179,6 @@
 
     document.addEventListener('DOMContentLoaded', toggleSubOperations);
 </script>
+
 
 {% endblock %}
