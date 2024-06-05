@@ -5,7 +5,6 @@
         display: none;
     }
 </style>
-
 {% block body %}
 <div class="p-4 md:p-8">
     <h1 class="text-center font-semibold text-bluegray-900 text-2xl md:text-5xl dark:text-cloudburst mb-6">Form</h1>
@@ -37,7 +36,7 @@
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
         </div>
-
+        <br>
         <div class="ml-7 hidden" id="sub-options-standard">
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
@@ -73,7 +72,7 @@
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
         </div>
-
+        <br>
         <div class="mb-4">
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.payment.label }}</label>
             {% for subfield in form.payment %}
@@ -93,7 +92,7 @@
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
         </div>
-
+        <br>
         <div class="mb-4">
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.billing_info.label }}</label>
             {% for subfield in form.billing_info %}
@@ -113,7 +112,7 @@
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
         </div>
-
+        <br>
         <div class="mb-4">
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.quantity.label }}</label>
             <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
