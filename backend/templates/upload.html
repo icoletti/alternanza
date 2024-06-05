@@ -5,176 +5,159 @@
         display: none;
     }
 </style>
+
 {% block body %}
-<h1 class="display flex justify-center font-semibold text-bluegray text-5xl dark:text-cloudburst">Form</h1>
-<div class="flex items-center">
-    <p> Approfitta delle scelte smart! Indicate con</p>
-    <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
+<div class="p-4 md:p-8">
+    <h1 class="text-center font-semibold text-bluegray-900 text-2xl md:text-5xl dark:text-cloudburst mb-6">Form</h1>
+    <div class="flex items-center mb-3">
+        <p>Approfitta delle scelte smart! Indicate con</p>
+        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
+    </div>
+
+    <form method="POST" action="{{ url_for('upload') }}">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+
+        <div class="mb-4" id="operazione">
+            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation.label }}</label>
+            {% for subfield in form.operation %}
+            <div class="flex items-center mb-2">
+                {{ subfield(class="text-lg md:text-2xl", onchange="toggleSubOperations()") }}
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
+                    alt="Best Option">
+                {% endif %}
+            </div>
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+                {{ form.category_descriptions[subfield.data] }}
+            </div>
+            {% endfor %}
+            {% for error in form.operation.errors %}
+            <span class="text-red-500">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="ml-7 hidden" id="sub-options-standard">
+            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation_sub.label }}</label>
+            {% for subfield in form.operation_sub %}
+            {% if subfield.data in ['opt1', 'opt2'] %}
+            <div class="flex items-center mb-2">
+                {{ subfield(class="text-lg md:text-2xl") }}
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+            </div>
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+                {{ form.category_descriptions[subfield.data] }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for error in form.operation_sub.errors %}
+            <span class="text-red-500">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="ml-7 hidden" id="sub-options-best">
+            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation_sub.label }}</label>
+            {% for subfield in form.operation_sub %}
+            {% if subfield.data in ['opt3', 'opt4', 'opt5'] %}
+            <div class="flex items-center mb-2">
+                {{ subfield(class="text-lg md:text-2xl") }}
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+            </div>
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+                {{ form.category_descriptions[subfield.data] }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% for error in form.operation_sub.errors %}
+            <span class="text-red-500">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.payment.label }}</label>
+            {% for subfield in form.payment %}
+            <div class="flex items-center mb-2">
+                {{ subfield(class="text-lg md:text-2xl") }}
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
+                    alt="Best Option">
+                {% endif %}
+            </div>
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+                {{ form.category_descriptions[subfield.data] }}
+            </div>
+            {% endfor %}
+            {% for error in form.payment.errors %}
+            <span class="text-red-500">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.billing_info.label }}</label>
+            {% for subfield in form.billing_info %}
+            <div class="flex items-center mb-2">
+                {{ subfield(class="text-lg md:text-2xl") }}
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
+                    alt="Best Option">
+                {% endif %}
+            </div>
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+                {{ form.category_descriptions[subfield.data] }}
+            </div>
+            {% endfor %}
+            {% for error in form.billing_info.errors %}
+            <span class="text-red-500">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.quantity.label }}</label>
+            <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
+            <input type="number" id="quantity-input" name="quantity" min="100" max="100000" step="100"
+                value="{{ form.quantity.data if form.quantity.data else 100 }}"
+                class="block w-full rounded-md border-0 p-1.5 text-gray-900 text-lg shadow-sm ring-1 ring-inset ring-bluegray dark:ring-cloudburst placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst"
+                oninput="updateSliderValue(this.value)">
+            <input type="range" id="quantity-slider" list="markers" min="100" max="100000" step="100"
+                value="{{ form.quantity.data if form.quantity.data else 100 }}"
+                oninput="updateQuantityValue(this.value)"
+                class="w-full h-2 bg-bluegray rounded-lg cursor-pointer dark:bg-cloudburst">
+            <datalist id="markers" class="flex justify-between w-full">
+                <option value="100"></option>
+                <option value="300"></option>
+                <option value="1000"></option>
+                <option value="3000"></option>
+                <option value="10000"></option>
+                <option value="30000"></option>
+                <option value="100000"></option>
+            </datalist>
+            {% for error in form.quantity.errors %}
+            <span class="text-red-500">{{ error }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="mt-6 mb-2">
+            <button type="submit"
+                class="block w-full bg-bluegray dark:bg-cloudburst text-white py-3 rounded-md text-lg md:text-2xl font-semibold shadow-sm hover:bg-cloudburst dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cloudburst dark:focus:ring-cloudburst">
+                Submit
+            </button>
+        </div>
+    </form>
 </div>
 
-<form class="m-3" method="POST" action="{{ url_for('upload')}}">
-    {{ form.csrf_token }}
-    {{ form.hidden_tag() }}
-
-    <div class="p-1.5" id="operazione">
-        <ul>
-            <li>{{ form.operation.label(class="block text-gray-900 text-3xl mb-2") }}</li>
-            <li>
-                {% for subfield in form.operation %}
-                <div class="flex flex-col">
-                    <div class="flex items-center">
-                        {{ subfield(class="text-2xl sm:leading-6", onchange="toggleSubOperations()") }}
-                        <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
-                        {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
-                        'best_option2'%}
-                        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
-                            alt="Best Option">
-                        {% endif %}
-                    </div>
-                    <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
-                        {{ form.category_descriptions[subfield.data] }}
-                    </div>
-                </div>
-                {% endfor %}
-            </li>
-            {% for error in form.operation.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div  class="p-1.5 ml-7 hidden" id="sub-options-standard">
-        <ul>
-            <li>{{ form.operation_sub.label(class="block text-gray-900 text-2xl mb-2") }}</li>
-                <li>
-                    {% for subfield in form.operation_sub %}
-                    {% if subfield.data in ['opt1', 'opt2'] %}
-                        <div class="flex flex-col">
-                            <div class="flex items-center">
-                                {{ subfield(class="text-2xl sm:leading-6") }}
-                                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
-                            </div>
-                        <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
-                            {{ form.category_descriptions[subfield.data] }}
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </li>
-                {% for error in form.operation_sub.errors %}
-                <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            </ul>
-        </div>
-        
-        <div class="p-1.5 ml-7 hidden" id="sub-options-best">
-            <ul>
-                <li>{{ form.operation_sub.label(class="block text-gray-900 text-2xl mb-2") }}</li>
-                <li>
-                    {% for subfield in form.operation_sub %}
-                    {% if subfield.data in ['opt3', 'opt4', 'opt5']%}
-                        <div class="flex flex-col">
-                            <div class="flex items-center">
-                                {{ subfield(class="text-2xl  sm:leading-6") }}
-                                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
-                            </div>
-                        <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
-                            {{ form.category_descriptions[subfield.data] }}
-                        </div>
-                    </div>
-                    {% endif %}
-                    {% endfor %}
-                </li>
-                {% for error in form.operation_sub.errors %}
-                <span style="color: red;">{{ error }}</span>
-                {% endfor %}
-            </ul>
-        </div>
-        
-
-    <br>
-    <div class="p-1.5">
-        <ul>
-            <li>{{ form.payment.label(class="block text-gray-900 text-3xl mb-2") }}</li>
-            <li>
-                {% for subfield in form.payment %}
-                <div class="flex flex-col">
-                    <div class="flex items-center">
-                        {{ subfield(class="sm:leading-6") }}
-                        <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
-                        {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
-                        'best_option2'%}
-                        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
-                            alt="Best Option">
-                        {% endif %}
-                    </div>
-                    <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
-                        {{ form.category_descriptions[subfield.data] }}
-                    </div>
-                </div>
-
-                {% endfor %}
-            </li>
-            {% for error in form.payment.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </ul>
-
-
-
-    </div>
-    <br>
-    <div class="p-1.5">
-        <ul>
-            <li>{{ form.billing_info.label(class="block text-gray-900 text-3xl mb-2") }}</li>
-            <li>
-                {% for subfield in form.billing_info %}
-                <div class="flex flex-col>
-                    <div class=" flex items-center">
-                    {{ subfield(class="sm:leading-6")}}
-                    <label for="{{subfield.id}}" class="ml-2">{{ subfield.label.text }}</label>
-
-                    {% if subfield.data == 'best_option0' or subfield.data == 'best_option1' or subfield.data ==
-                    'best_option2'%}
-                    <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
-                        alt="Best Option">
-                    {% endif %}
-                </div>
-                <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
-                    {{ form.category_descriptions[subfield.data] }}
-                </div>
-    </div>
-
-    {% endfor %}
-    </li>
-    {% for error in form.payment.errors %}
-    <span style="color: red;">{{ error }}</span>
-    {% endfor %}
-    </ul>
-
-    </div>
-    <br>
-    <div class="p-1.5">
-        {{ form.quantity.label(class="block text-gray-900 text-3xl mb-2") }}
-        <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
-        {{ form.quantity(class="block rounded-md border-0 p-1.5 text-gray-900 text-xl shadow-sm ring-1 ring-inset
-        ring-bluegray placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst sm:leading-6") }}
-        {% for error in form.quantity.errors %}
-        <span style="color: red;">{{ error }}</span>
-        {% endfor %}
-    </div>
-
-
-    <br>
-    <div class="mt-6 mb-2 flex items-center justify-center">
-        <button type="submit"
-            class="rounded-md bg-bluegray dark:bg-cloudburst px-3 py-2 text-3xl font-semibold text-white shadow-sm hover:bg-cloudburst dark:hover:bg-bluegray focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cloudburst"
-            value="Submit">Submit</button>
-    </div>
-    <br>
-</form>
 
 <script>
+    function updateQuantityValue(val) {
+        document.getElementById('quantity-input').value = val;
+    }
+
+    function updateSliderValue(val) {
+        document.getElementById('quantity-slider').value = val;
+    }
+
     function toggleSubOperations() {
         var mainElement = document.querySelector('input[name="operation"]:checked');
         var standardSubOptions = document.getElementById('sub-options-standard');
@@ -201,7 +184,4 @@
     document.addEventListener('DOMContentLoaded', toggleSubOperations);
 </script>
 
-    {% endblock %}
-
-
-
+{% endblock %}
