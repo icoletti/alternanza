@@ -21,7 +21,7 @@
         {{ form.hidden_tag() }}
 
         <div class="mb-4" id="operazione">
-            <label class="block text-gray-900 text-lg font-semibold md:text-2xl mb-2 dark:text-cadillac">{{ form.operation.label }}</label>
+            <label class="block text-graybase text-lg font-semibold md:text-2xl mb-2 dark:text-cadillac">{{ form.operation.label }}</label>
             {% for subfield in form.operation %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
@@ -40,7 +40,7 @@
         </div>
         <br>
         <div class="ml-7 hidden" id="sub-options-standard">
-            <label class="block text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
+            <label class="block text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt1', 'opt2'] %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
@@ -59,7 +59,7 @@
         </div>
 
         <div class="ml-7 hidden" id="sub-options-best">
-            <label class="block text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
+            <label class="block text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt3', 'opt4', 'opt5'] %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
@@ -78,7 +78,7 @@
         </div>
 
         <div class="mb-4">
-            <label class="block font-semibold text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.payment.label }}</label>
+            <label class="block font-semibold text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.payment.label }}</label>
             {% for subfield in form.payment %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
@@ -97,7 +97,7 @@
         </div>
         <br>
         <div class="mb-4">
-            <label class="block font-semibold text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.billing_info.label }}</label>
+            <label class="block font-semibold text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.billing_info.label }}</label>
             {% for subfield in form.billing_info %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg  md:text-2xl") }}
@@ -116,7 +116,7 @@
         </div>
         <br>
         <div class="mb-4">
-            <label class="block font-semibold text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.quantity.label }}</label>
+            <label class="block font-semibold text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.quantity.label }}</label>
             <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
             <input type="number" id="quantity-input" name="quantity" min="100" max="100000"
                 value="{{ form.quantity.data if form.quantity.data else 100 }}"
@@ -142,7 +142,7 @@
 
         <div class="mt-6 mb-2">
             <button type="submit"
-                class="block w-full text-black dark:text-white py-3 rounded-md text-lg md:text-2xl font-semibold shadow-sm bg-olivine hover:bg-bluegray dark:bg-cadillac dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset">
+                class="block w-full text-black dark:text-white py-3 rounded-md text-lg md:text-2xl font-semibold shadow-sm hover:bg-olivine bg-bluegray dark:hover:bg-cadillac dark:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset">
                 Submit
             </button>
         </div>
