@@ -10,21 +10,49 @@
 
 {% block body %}
 <div class="p-4 md:p-8">
-    <h1 class="text-center font-semibold text-bluegray text-2xl md:text-5xl mb-6 dark:text-lotus">Form</h1>
+    
+    <h1 class="text-center font-semibold text-bluegray text-5xl mb-6 dark:text-lotus">Form</h1>
     <div class="flex items-center mb-3">
         <p>Approfitta delle scelte smart! Indicate con</p>
         <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
     </div>
-
+    <br>
     <form method="POST" action="{{ url_for('upload') }}">
         {{ form.csrf_token }}
         {{ form.hidden_tag() }}
 
+    <div class="mb-4">
+        <label class="block font-semibold text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.invito_boolean.label }}</label>
+        <p class="mb-2">Possiedi un codice invito?</p>
+        {% for subfield in form.invito_boolean %}
+        <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
+            {{ subfield(class="text-2xl") }}
+            <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
+        </div>
+        {% endfor %}
+        {% for error in form.invito_boolean.errors %}
+        <span class="text-red-500">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+    <div id="new-sub-field" class="mb-4 hidden text-2xl text-graybase mb-2 ml-5 dark:text-cadillac">
+        <label class="block text-graybase text-2xl dark:text-cadillac">{{ form.invito_string.label }}</label>
+        {{ form.invito_string(class="block rounded-md border-0 p-1.5 text-black text-lg shadow-sm ring-1 ring-inset ring-bluegray dark:ring-tangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cadillac") }}
+        {% for error in form.invito_string.errors %}
+        <span class="text-red-500">{{ error }}</span>
+        {% endfor %}
+    </div>
+
+            <br>
+    
+
+    
+
         <div class="mb-4" id="operazione">
-            <label class="block text-graybase text-lg font-semibold md:text-2xl mb-2 dark:text-cadillac">{{ form.operation.label }}</label>
+            <label class="block text-graybase font-semibold text-2xl mb-2 dark:text-cadillac">{{ form.operation.label }}</label>
             {% for subfield in form.operation %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-lg md:text-2xl") }}
+                {{ subfield(class="text-2xl") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
                 <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
@@ -40,11 +68,11 @@
         </div>
         <br>
         <div class="ml-7 hidden" id="sub-options-standard">
-            <label class="block text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
+            <label class="block text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt1', 'opt2'] %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-lg md:text-2xl") }}
+                {{ subfield(class="text-2xl") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
             </div>
             <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine" onclick="selectOption('{{ subfield.id }}')">
@@ -59,11 +87,11 @@
         </div>
 
         <div class="ml-7 hidden" id="sub-options-best">
-            <label class="block text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
+            <label class="block text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt3', 'opt4', 'opt5'] %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-lg md:text-2xl") }}
+                {{ subfield(class="text-2xl") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
             </div>
             <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine" onclick="selectOption('{{ subfield.id }}')">
@@ -78,10 +106,10 @@
         </div>
 
         <div class="mb-4">
-            <label class="block font-semibold text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.payment.label }}</label>
+            <label class="block font-semibold text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.payment.label }}</label>
             {% for subfield in form.payment %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-lg md:text-2xl") }}
+                {{ subfield(class="text-2xl") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
                 <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
@@ -97,10 +125,10 @@
         </div>
         <br>
         <div class="mb-4">
-            <label class="block font-semibold text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.billing_info.label }}</label>
+            <label class="block font-semibold text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.billing_info.label }}</label>
             {% for subfield in form.billing_info %}
             <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-lg  md:text-2xl") }}
+                {{ subfield(class="text-2xl") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
                 <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
@@ -116,7 +144,7 @@
         </div>
         <br>
         <div class="mb-4">
-            <label class="block font-semibold text-graybase text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.quantity.label }}</label>
+            <label class="block font-semibold text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.quantity.label }}</label>
             <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
             <input type="number" id="quantity-input" name="quantity" min="100" max="100000"
                 value="{{ form.quantity.data if form.quantity.data else 100 }}"
@@ -151,35 +179,40 @@
 
 <script>
     function selectOption(optionId) {
-        var option = document.getElementById(optionId);
-        option.checked = true;
-        toggleSubOperations();
+    var option = document.getElementById(optionId);
+    option.checked = true;
+    toggleSubOperations();
+}
+
+function toggleSubOperations() {
+    var mainElement = document.querySelector('input[name="operation"]:checked');
+    var standardSubOptions = document.getElementById('sub-options-standard');
+    var bestSubOptions = document.getElementById('sub-options-best');
+    var newFieldElement = document.querySelector('input[name="invito_boolean"]:checked');
+    var newSubField = document.getElementById('new-sub-field');
+
+    if (!mainElement) {
+        standardSubOptions.classList.add('hidden');
+        bestSubOptions.classList.add('hidden');
+    } else if (mainElement.value === 'standard') {
+        standardSubOptions.classList.remove('hidden');
+        bestSubOptions.classList.add('hidden');
+    } else if (mainElement.value === 'best_option0') {
+        bestSubOptions.classList.remove('hidden');
+        standardSubOptions.classList.add('hidden');
+    } else {
+        standardSubOptions.classList.add('hidden');
+        bestSubOptions.classList.add('hidden');
     }
 
-    function toggleSubOperations() {
-        var mainElement = document.querySelector('input[name="operation"]:checked');
-        var standardSubOptions = document.getElementById('sub-options-standard');
-        var bestSubOptions = document.getElementById('sub-options-best');
-
-        if (!mainElement) {
-            standardSubOptions.classList.add('hidden');
-            bestSubOptions.classList.add('hidden');
-            return;
-        }
-
-        if (mainElement.value === 'standard') {
-            standardSubOptions.classList.remove('hidden');
-            bestSubOptions.classList.add('hidden');
-        } else if (mainElement.value === 'best_option0') {
-            bestSubOptions.classList.remove('hidden');
-            standardSubOptions.classList.add('hidden');
-        } else {
-            standardSubOptions.classList.add('hidden');
-            bestSubOptions.classList.add('hidden');
-        }
+    if (newFieldElement && newFieldElement.value === 'best_option') {
+        newSubField.classList.remove('hidden');
+    } else {
+        newSubField.classList.add('hidden');
     }
+}
 
-    document.addEventListener('DOMContentLoaded', toggleSubOperations);
+document.addEventListener('DOMContentLoaded', toggleSubOperations);
 </script>
 
 {% endblock %}

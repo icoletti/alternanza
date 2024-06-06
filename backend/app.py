@@ -61,17 +61,19 @@ def upload():
    
    if form.validate_on_submit():
       logger.info(request.form)
+      invito_boolean = form.invito_boolean.data
+      invito_string = form.invito_string.data if invito_boolean == 'best_option' else None
       quantity = form.quantity.data
       operation = form.operation.data
       operation_sub = form.operation_sub.data
       payment = form.payment.data
       billing_info = form.billing_info.data
-      commission_eur = calculate_commission(quantity, operation, payment, billing_info)
+      commission_eur = calculate_commission(quantity, invito_boolean, operation, payment, billing_info)
       actual_price = price + commission_eur
       purchase_btc = quantity / price
       commission_btc = commission_eur / price
       actual_purchase = purchase_btc #- commission_btc
-      savings_percentange = calculate_savings(quantity, operation, payment, billing_info)
+      savings_percentange = calculate_savings(quantity, invito_boolean, operation, payment, billing_info)
       options = ['operation', 'quantity', 'payment']
       smart_options = ['best_option0', 'best_option1', 'best_option2']
       smart_option_found = any(option in smart_options for option in options)
@@ -79,6 +81,7 @@ def upload():
       data = {
       "form": form,
       "quantity": quantity,
+      "invito_string": invito_string,
       "commission_eur": commission_eur,
       "commission_btc": "%.8f" % commission_btc,
       "commission_percent": round((commission_eur / quantity) * 100, 2),

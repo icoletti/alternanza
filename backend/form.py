@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import RadioField, IntegerField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms import RadioField, IntegerField, StringField
+from wtforms.validators import DataRequired, NumberRange, Length, Optional
 import os
 import sys
 import logging
@@ -19,6 +19,8 @@ base_commission = float(os.environ.get("BASE_COMMISSION"))
 
 class MyForm(FlaskForm):
     '''contenuto del mio form'''
+    invito_boolean = RadioField('Codice invito', choices=[('false', 'No'), ('best_option', 'Si')], validators=[DataRequired(message='Possiedi un codice invito?')])
+    invito_string = StringField('Codice', validators=[Optional(), Length(min=8, max=8, message='Deve essere di 8 caratteri')])
     operation = RadioField('Operazione', choices=[('standard', 'Standard/tanum'), ('best_option0', 'Ricorrente')], validators=[DataRequired()])
     operation_sub = RadioField('Operazione Sottoscelta', choices=[('opt1', 'Standard'), ('opt2', '"Fast"'), ('opt3', 'Bisettimanale'), ('opt4', 'Mensile'), ('opt5', 'Trimestrale')], validators=[DataRequired()])
     payment = RadioField('Pagamento', choices=[('cash', 'Contanti'), ('credit_card', 'Carte'), ('best_option1', 'Bonifico')], validators=[DataRequired()])
@@ -43,7 +45,7 @@ def calculate_purchase_btc(quantity, price):
     '''metodo per calcolare le commissioni in BTC'''
     return (quantity / price)
 
-def calculate_commission(quantity, operation, payment, billing_info):
+def calculate_commission(quantity, invito_boolean, operation, payment, billing_info):
     '''metodo per calcolare le commissioni in EURO'''
     for i, range_max in enumerate(quantity_ranges):
         if quantity <= range_max:
@@ -51,6 +53,8 @@ def calculate_commission(quantity, operation, payment, billing_info):
             logger.info(range_max)
             logger.info(quantity<range_max)
             commission = commission_rates[i]
+            if invito_boolean == 'best_option':
+                commission += best_option_adjustment
             if operation == 'best_option0':
                 commission += best_option_adjustment
             if payment == 'best_option1':
@@ -60,8 +64,8 @@ def calculate_commission(quantity, operation, payment, billing_info):
             return (quantity *commission) / 100
     return (commission_rates[-1]) / 100
 
-def calculate_savings(quantity, operation, payment, billing_info):
-    actual_commission = (calculate_commission(quantity, operation, payment, billing_info) / quantity) * 100
+def calculate_savings(quantity, invito_boolean, operation, payment, billing_info):
+    actual_commission = (calculate_commission(quantity, invito_boolean, operation, payment, billing_info) / quantity) * 100
     logger.info(actual_commission)
     standard_commission = base_commission
     logger.info(standard_commission)
