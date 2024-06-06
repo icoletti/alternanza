@@ -81,7 +81,6 @@ def upload():
       data = {
       "form": form,
       "quantity": quantity,
-      "invito_string": invito_string,
       "commission_eur": commission_eur,
       "commission_btc": "%.8f" % commission_btc,
       "commission_percent": round((commission_eur / quantity) * 100, 2),
@@ -90,6 +89,8 @@ def upload():
       "actual_price": "%.2f" % actual_price,
       "actual_purchase": "%.8f" % actual_purchase,
       "savings_percentange":"%.2f" %  savings_percentange,
+      "selected_invito": invito_boolean,
+      "codice_invito": invito_string,
       "selected_operation": operation,
       "selected_sub": operation_sub,
       "selected_payment": payment,
