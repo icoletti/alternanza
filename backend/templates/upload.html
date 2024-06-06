@@ -4,14 +4,13 @@
     .hidden {
         display: none;
     }
-    .option-container {
-        cursor: pointer;
-    }
+
 </style>
 <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
+
 {% block body %}
 <div class="p-4 md:p-8">
-    <h1 class="text-center font-semibold text-bluegray-900 text-2xl md:text-5xl dark:text-cloudburst mb-6">Form</h1>
+    <h1 class="text-center font-semibold text-bluegray text-2xl md:text-5xl mb-6 dark:text-lotus">Form</h1>
     <div class="flex items-center mb-3">
         <p>Approfitta delle scelte smart! Indicate con</p>
         <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
@@ -22,16 +21,16 @@
         {{ form.hidden_tag() }}
 
         <div class="mb-4" id="operazione">
-            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation.label }}</label>
+            <label class="block text-gray-900 text-lg font-semibold md:text-2xl mb-2 dark:text-cadillac">{{ form.operation.label }}</label>
             {% for subfield in form.operation %}
-            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
-                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6 cursor-pointer" alt="Best Option">
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endfor %}
@@ -41,14 +40,14 @@
         </div>
         <br>
         <div class="ml-7 hidden" id="sub-options-standard">
-            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation_sub.label }}</label>
+            <label class="block text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt1', 'opt2'] %}
-            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endif %}
@@ -60,14 +59,14 @@
         </div>
 
         <div class="ml-7 hidden" id="sub-options-best">
-            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation_sub.label }}</label>
+            <label class="block text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt3', 'opt4', 'opt5'] %}
-            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endif %}
@@ -79,16 +78,16 @@
         </div>
 
         <div class="mb-4">
-            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.payment.label }}</label>
+            <label class="block font-semibold text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.payment.label }}</label>
             {% for subfield in form.payment %}
-            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
-                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6 cursor-pointer" alt="Best Option">
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endfor %}
@@ -98,16 +97,16 @@
         </div>
         <br>
         <div class="mb-4">
-            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.billing_info.label }}</label>
+            <label class="block font-semibold text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.billing_info.label }}</label>
             {% for subfield in form.billing_info %}
-            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
+            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
+                {{ subfield(class="text-lg  md:text-2xl") }}
+                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
-                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6 cursor-pointer" alt="Best Option">
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
+            <div class="text-bluegray ml-5 mb-5 cursor-pointer dark:text-tangerine" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endfor %}
@@ -117,13 +116,13 @@
         </div>
         <br>
         <div class="mb-4">
-            <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.quantity.label }}</label>
+            <label class="block font-semibold text-gray-900 text-lg md:text-2xl mb-2 dark:text-cadillac">{{ form.quantity.label }}</label>
             <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
-            <input type="number" id="quantity-input" name="quantity" min="100" max="100000" step="100"
+            <input type="number" id="quantity-input" name="quantity" min="100" max="100000"
                 value="{{ form.quantity.data if form.quantity.data else 100 }}"
-                class="block rounded-md border-0 p-1.5 text-gray-900 text-lg shadow-sm ring-1 ring-inset ring-bluegray dark:ring-cloudburst placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cloudburst"
+                class="block rounded-md border-0 p-1.5 text-black text-lg shadow-sm ring-1 ring-inset ring-bluegray dark:ring-tangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cadillac"
                 oninput="updateSliderValue(this.value)">
-            <input type="range" id="quantity-slider" list="markers" min="100" max="100000" step="100"
+            <input type="range" id="quantity-slider" list="markers" min="100" max="100000"
                 value="{{ form.quantity.data if form.quantity.data else 100 }}"
                 oninput="updateQuantityValue(this.value)"
                 class="w-full h-2 bg-bluegray outline-none cursor-pointer dark:bg-cloudburst">
@@ -143,7 +142,7 @@
 
         <div class="mt-6 mb-2">
             <button type="submit"
-                class="block w-full bg-bluegray dark:bg-cloudburst text-white py-3 rounded-md text-lg md:text-2xl font-semibold shadow-sm hover:bg-cloudburst dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cloudburst dark:focus:ring-cloudburst">
+                class="block w-full text-black dark:text-white py-3 rounded-md text-lg md:text-2xl font-semibold shadow-sm bg-olivine hover:bg-bluegray dark:bg-cadillac dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset">
                 Submit
             </button>
         </div>
