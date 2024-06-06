@@ -4,6 +4,9 @@
     .hidden {
         display: none;
     }
+    .option-container {
+        cursor: pointer;
+    }
 </style>
 <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
 {% block body %}
@@ -21,15 +24,14 @@
         <div class="mb-4" id="operazione">
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation.label }}</label>
             {% for subfield in form.operation %}
-            <div class="flex items-center mb-2">
-                {{ subfield(class="text-lg md:text-2xl", onchange="toggleSubOperations()") }}
-                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
+                {{ subfield(class="text-lg md:text-2xl") }}
+                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
-                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
-                    alt="Best Option">
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6 cursor-pointer" alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endfor %}
@@ -42,11 +44,11 @@
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt1', 'opt2'] %}
-            <div class="flex items-center mb-2">
+            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endif %}
@@ -61,11 +63,11 @@
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt3', 'opt4', 'opt5'] %}
-            <div class="flex items-center mb-2">
+            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endif %}
@@ -75,19 +77,18 @@
             {% endfor %}
             <br>
         </div>
-        
+
         <div class="mb-4">
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.payment.label }}</label>
             {% for subfield in form.payment %}
-            <div class="flex items-center mb-2">
+            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
-                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
-                    alt="Best Option">
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6 cursor-pointer" alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endfor %}
@@ -99,15 +100,14 @@
         <div class="mb-4">
             <label class="block text-gray-900 text-lg md:text-2xl mb-2">{{ form.billing_info.label }}</label>
             {% for subfield in form.billing_info %}
-            <div class="flex items-center mb-2">
+            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ subfield(class="text-lg md:text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
+                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
-                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
-                    alt="Best Option">
+                <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6 cursor-pointer" alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst">
+            <div class="text-bluegray ml-5 mb-5 dark:text-cloudburst option-container" onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
             {% endfor %}
@@ -150,9 +150,12 @@
     </form>
 </div>
 
-
 <script>
-    
+    function selectOption(optionId) {
+        var option = document.getElementById(optionId);
+        option.checked = true;
+        toggleSubOperations();
+    }
 
     function toggleSubOperations() {
         var mainElement = document.querySelector('input[name="operation"]:checked');
@@ -179,6 +182,5 @@
 
     document.addEventListener('DOMContentLoaded', toggleSubOperations);
 </script>
-
 
 {% endblock %}
