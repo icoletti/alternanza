@@ -62,7 +62,7 @@ def upload():
    if form.validate_on_submit():
       logger.info(request.form)
       invito_boolean = form.invito_boolean.data
-      invito_string = form.invito_string.data if invito_boolean == 'best_option' else None
+      invito_string = form.invito_string.data if invito_boolean == 'best_option' else ''
       quantity = form.quantity.data
       operation = form.operation.data
       operation_sub = form.operation_sub.data
@@ -75,8 +75,20 @@ def upload():
       actual_purchase = purchase_btc #- commission_btc
       savings_percentange = calculate_savings(quantity, invito_boolean, operation, payment, billing_info)
       options = ['operation', 'quantity', 'payment']
-      smart_options = ['best_option0', 'best_option1', 'best_option2']
-      smart_option_found = any(option in smart_options for option in options)
+      smart_options = ['Ricorrente', 'Bonifico', 'Spid']
+      boolan_choices = dict(form.invito_boolean.choices)
+      operation_choices = dict(form.operation.choices)
+      operation_sub_choices = dict(form.operation_sub.choices)
+      payment_choices = dict(form.payment.choices)
+      billing_info_choices = dict(form.billing_info.choices)
+      choices = [
+            ('Code invito', boolan_choices.get(form.invito_boolean.data, invito_boolean)),
+            ('Codice', invito_string),
+            ('Operazione', operation_choices.get(form.operation.data, operation)),
+            ('Sottoscelta operazione', operation_sub_choices.get(form.operation_sub.data, operation_sub)),
+            ('Pagamento', payment_choices.get(form.payment.data, payment)),
+            ('Dati di Fatturazione', billing_info_choices.get(form.billing_info.data, billing_info)),
+        ]
 
       data = {
       "form": form,
@@ -96,9 +108,9 @@ def upload():
       "selected_payment": payment,
       "selected_billinginfo": billing_info,
       "desc": DESCRIZIONE,
-      "options": ['selected_operation','selected_billinginfo', 'selected_payment'],
       "smart_options": smart_options,
-      "smart_option_found": smart_option_found
+      "choices": choices
+      
       }
 
       return render_template('result1.html', **data)
