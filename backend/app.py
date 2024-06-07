@@ -62,7 +62,7 @@ def upload():
    if form.validate_on_submit():
       logger.info(request.form)
       invito_boolean = form.invito_boolean.data
-      invito_string = form.invito_string.data if invito_boolean == 'best_option' else ''
+      invito_string = form.invito_string.data if invito_boolean == 'best_option' else '-'
       quantity = form.quantity.data
       operation = form.operation.data
       operation_sub = form.operation_sub.data
@@ -74,7 +74,6 @@ def upload():
       commission_btc = commission_eur / price
       actual_purchase = purchase_btc #- commission_btc
       savings_percentange = calculate_savings(quantity, invito_boolean, operation, payment, billing_info)
-      options = ['operation', 'quantity', 'payment']
       smart_options = ['Ricorrente', 'Bonifico', 'Spid']
       boolan_choices = dict(form.invito_boolean.choices)
       operation_choices = dict(form.operation.choices)
@@ -82,12 +81,12 @@ def upload():
       payment_choices = dict(form.payment.choices)
       billing_info_choices = dict(form.billing_info.choices)
       choices = [
-            ('Code invito', boolan_choices.get(form.invito_boolean.data, invito_boolean)),
+            ('Code invito', boolan_choices.get(invito_boolean, invito_boolean)),
             ('Codice', invito_string),
-            ('Operazione', operation_choices.get(form.operation.data, operation)),
-            ('Sottoscelta operazione', operation_sub_choices.get(form.operation_sub.data, operation_sub)),
-            ('Pagamento', payment_choices.get(form.payment.data, payment)),
-            ('Dati di Fatturazione', billing_info_choices.get(form.billing_info.data, billing_info)),
+            ('Operazione', operation_choices.get(operation, operation)),
+            ('Sottoscelta operazione', operation_sub_choices.get(operation_sub, operation_sub)),
+            ('Pagamento', payment_choices.get(payment, payment)),
+            ('Dati di Fatturazione', billing_info_choices.get(billing_info, billing_info)),
         ]
 
       data = {
@@ -101,16 +100,10 @@ def upload():
       "actual_price": "%.2f" % actual_price,
       "actual_purchase": "%.8f" % actual_purchase,
       "savings_percentange":"%.2f" %  savings_percentange,
-      "selected_invito": invito_boolean,
       "codice_invito": invito_string,
-      "selected_operation": operation,
-      "selected_sub": operation_sub,
-      "selected_payment": payment,
-      "selected_billinginfo": billing_info,
       "desc": DESCRIZIONE,
       "smart_options": smart_options,
       "choices": choices
-      
       }
 
       return render_template('result1.html', **data)
