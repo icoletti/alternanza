@@ -143,11 +143,6 @@ print(f"Commissione: {commission}")
 print(f"Risparmio percentuale: {savings}%")
 ```
 
-Ilaria 01
-	
-15:46 (0 minuti fa)
-	
-a me
 
 #### Documentazione del file `config.py`
 
