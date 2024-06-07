@@ -7,10 +7,11 @@ Web application realizzata con Flask, Docker, Docker Compose e Tailwind CSS.
 3. **Selezione del Framework Frontend**: analisi delle esigenze del progetto per scegliere il framework frontend ottimale tra React, Angular e Vue.js. La scelta terrà conto di criteri come la facilità d'uso, la performance e la compatibilità con il backend.
 4. **Sviluppo della pagina Web**: progettazione dell'interfaccia utente e sviluppo delle funzionalità frontend, garantendo un'esperienza utente intuitiva e responsive. Vanno implementate le richieste specifiche del progetto per soddisfare  gli obbiettivi funzionali.
 ## Documentazione
-### Creazione del File Flask (`app.py` e `form.py`)
+### Creazione del File Flask (`app.py`, `form.py` e `config.py`)
+#### Struttura del Codice app.py
 
 Per iniziare ho creato una semplice applicazione Flask. Ho creato un file chiamato `app.py`. Questa applicazione gestisce alcune rotte e rende i template HTML corrispondenti. La logica principale include la gestione degli errori di un form e il rendering dei risultati.
-#### Struttura del Codice
+
 1. **Configurazione delle variabili**
    - `actual_purchase`: Viene formattato con 8 cifre decimali.
    - `savings_percentange`: Viene formattato con 2 cifre decimali.
@@ -77,50 +78,50 @@ Per iniziare ho creato una semplice applicazione Flask. Ho creato un file chiama
 - **Avvio dell'Applicazione**
   L'applicazione viene avviata solo se il file è eseguito direttamente. Questo è utile durante lo sviluppo e il debug, poiché consente di avviare l'applicazione con un semplice comando.
 
+#### Funzioni del file form.py
+
 Ho creato un file chiamato `form.py`. Questo modulo contiene funzioni per calcolare le commissioni e i risparmi basati su diverse condizioni di input. Utilizza un logger per registrare informazioni rilevanti durante l'esecuzione delle funzioni.
 
-#### Funzioni
-
-##### `calculate_commission(quantity, invito_boolean, operation, payment, billing_info)`
+#### `calculate_commission(quantity, invito_boolean, operation, payment, billing_info)`
 
 Calcola la commissione basata su vari parametri di input e aggiustamenti specifici.
 
-###### Parametri:
+#### Parametri:
 - `quantity` (int): La quantità su cui calcolare la commissione.
 - `invito_boolean` (str): Una stringa che determina se applicare un aggiustamento per 'best_option'.
 - `operation` (str): Una stringa che determina se applicare un aggiustamento per 'best_option0'.
 - `payment` (str): Una stringa che determina se applicare un aggiustamento per 'best_option1'.
 - `billing_info` (str): Una stringa che determina se applicare un aggiustamento per 'best_option2'.
 
-###### Ritorna:
+#### Ritorna:
 - `float`: La commissione calcolata in base alla quantità e agli aggiustamenti applicabili.
 
-###### Note:
+#### Note:
 - Viene utilizzato un logger per registrare informazioni sulla quantità, sul range massimo e sulla condizione `quantity < range_max`.
 - La commissione viene aggiustata in base a vari parametri specifici.
 - Se nessuna condizione è soddisfatta, viene ritornata una commissione di base.
 
-##### `calculate_savings(quantity, invito_boolean, operation, payment, billing_info)`
+#### `calculate_savings(quantity, invito_boolean, operation, payment, billing_info)`
 
 Calcola i risparmi percentuali rispetto a una commissione standard.
 
-###### Parametri:
+#### Parametri:
 - `quantity` (int): La quantità su cui calcolare i risparmi.
 - `invito_boolean` (str): Una stringa che determina se applicare un aggiustamento per 'best_option'.
 - `operation` (str): Una stringa che determina se applicare un aggiustamento per 'best_option0'.
 - `payment` (str): Una stringa che determina se applicare un aggiustamento per 'best_option1'.
 - `billing_info` (str): Una stringa che determina se applicare un aggiustamento per 'best_option2'.
 
-###### Ritorna:
+#### Ritorna:
 - `float`: La percentuale di risparmio rispetto alla commissione standard.
 
-###### Note:
+#### Note:
 - Calcola la commissione attuale utilizzando la funzione `calculate_commission`.
 - Confronta la commissione attuale con una commissione standard (`base_commission`).
 - Registra la commissione attuale e quella standard utilizzando un logger.
 - Calcola la percentuale di risparmio e la ritorna.
 
-#### Costanti
+#### Costanti:
 - `logger`: Un oggetto logger utilizzato per registrare informazioni durante l'esecuzione delle funzioni.
 - `commission_rates` (list): Una lista di tassi di commissione applicabili.
 - `best_option_adjustment` (float): Un valore di aggiustamento per 'best_option'.
@@ -142,6 +143,64 @@ print(f"Commissione: {commission}")
 print(f"Risparmio percentuale: {savings}%")
 ```
 
+Ilaria 01
+	
+15:46 (0 minuti fa)
+	
+a me
+
+#### Documentazione del file `config.py`
+
+Il file `config.py` è un file di configurazione per un'applicazione Python. Questo file imposta vari parametri di configurazione necessari per l'esecuzione dell'applicazione, utilizzando principalmente variabili di ambiente per ottenere i valori di configurazione. Qui di seguito è fornita una spiegazione dettagliata del contenuto del file.
+
+
+```python
+import os
+import redis
+```
+
+- `os`: Il modulo `os` fornisce un modo per interagire con il sistema operativo, in particolare per accedere alle variabili di ambiente.
+- `redis`: Questo modulo è utilizzato per interagire con il database Redis.
+
+#### Variabili di Ambiente
+
+```python
+REDIS_URL = os.environ["REDIS_URL"]
+DEBUG_MODE = os.environ.get('DEBUG', 'False').lower() in ['true', '1']
+```
+
+- `REDIS_URL`: Questa variabile legge l'URL di connessione al server Redis dalla variabile di ambiente `REDIS_URL`. È obbligatoria e deve essere definita nell'ambiente in cui l'applicazione viene eseguita.
+- `DEBUG_MODE`: Questa variabile legge lo stato del debug dalla variabile di ambiente `DEBUG`. Se `DEBUG` è impostato su `'true'` o `'1'`, `DEBUG_MODE` sarà `True`, altrimenti sarà `False`.
+
+#### Classe `Config`
+
+```python
+class Config(object):
+    """ config object """
+    basedir = os.path.abspath(os.path.dirname(__file__))
+
+    # Set up the App SECRET_KEY
+    SECRET_KEY = os.environ['SECRET_KEY']
+
+    # redis config
+    SESSION_TYPE = 'redis'
+    SESSION_REDIS = redis.from_url(REDIS_URL)
+
+    CACHE_TYPE = "RedisCache"
+    CACHE_DEFAULT_TIMEOUT = 100
+    CACHE_REDIS_URL = REDIS_URL
+
+    DEBUG = DEBUG_MODE
+```
+
+- `basedir`: Questa variabile definisce la directory di base del progetto, ottenuta in modo assoluto dalla posizione del file `config.py`.
+- `SECRET_KEY`: Questa variabile legge il valore della chiave segreta per l'applicazione dalla variabile di ambiente `SECRET_KEY`. È obbligatoria per la sicurezza dell'applicazione.
+- `SESSION_TYPE`: Questo parametro è impostato su `'redis'`, indicando che le sessioni utente verranno gestite tramite Redis.
+- `SESSION_REDIS`: Questa variabile crea una connessione al server Redis utilizzando l'URL specificato in `REDIS_URL`.
+- `CACHE_TYPE`: Indica che il tipo di cache utilizzato è `RedisCache`.
+- `CACHE_DEFAULT_TIMEOUT`: Imposta il timeout predefinito della cache a 100 secondi.
+- `CACHE_REDIS_URL`: Imposta l'URL del server Redis per la cache.
+- `DEBUG`: Imposta lo stato del debug utilizzando il valore della variabile `DEBUG_MODE`.
 
 
 Le variabili `HOST`, e `PORT` si torvano nel file .env creato.
@@ -152,6 +211,8 @@ DEBUG=true
 FLASK_DEBUG=1
 NAME=Nome
 ```
+
+
 ### Creazione del File Docker (`Dockerfile`)
 
 Il `Dockerfile` è un file di testo che contiene tutte le istruzioni necessarie per creare un'immagine Docker. Ho creato un file chiamato `Dockerfile` nella stessa directory di `app.py` e ho aggiunto il seguente contenuto:
