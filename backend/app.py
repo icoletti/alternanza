@@ -72,7 +72,7 @@ def upload():
       actual_price = price + commission_eur
       purchase_btc = quantity / price
       commission_btc = commission_eur / price
-      actual_purchase = purchase_btc #- commission_btc
+      actual_purchase = purchase_btc - commission_btc
       savings_percentange = calculate_savings(quantity, invito_boolean, operation, payment, billing_info)
       smart_options = ['Ricorrente', 'Bonifico', 'Spid']
       boolan_choices = dict(form.invito_boolean.choices)
