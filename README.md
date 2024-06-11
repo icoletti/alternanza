@@ -235,7 +235,8 @@ Flask-Caching==2.3.0
 ```
 ### Creazione del File Docker Compose (`docker-compose.yml`)
 
-Il file `docker-compose.yml` definisce i servizi Docker che compongono la tua applicazione. Ho creato un file chiamato `docker-compose.yml` e ho aggiunto il seguente contenuto:
+Il file `docker-compose.yaml` è utilizzato per definire e gestire applicazioni multi-container con Docker Compose.
+Il file `docker-compose.yml` definisce i servizi Docker che compongono la tua applicazione. Il file è strutturato in sezioni principali e sottosezioni, ognuna con uno scopo specifico. Ecco una panoramica del contenuto:
 ```yaml
 services:
   backend:
@@ -254,6 +255,42 @@ services:
     restart: unless-stopped
     container_name: "container_cache"
 ```
+
+
+Il file `docker-compose.yaml` è utilizzato per definire e gestire applicazioni multi-contenitore con Docker Compose. Di seguito è riportata una documentazione dettagliata del file `docker-compose.yaml` che hai fornito.
+
+### Struttura del file `docker-compose.yaml`
+
+Il file è strutturato in sezioni principali e sottosezioni, ognuna con uno scopo specifico. Ecco una panoramica del contenuto:
+
+```yaml
+version: '3'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - .env
+    ports:
+      - ${PORT}:${PORT}
+    container_name: "container_flask"
+    restart: unless-stopped
+    volumes:
+      - ./backend:/usr/src/app
+  redis:
+    image: "redis:alpine"
+    restart: unless-stopped
+    container_name: "container_cache"
+```
+
+#### services
+La sezione `services` definisce i vari servizi (contenitori) che compongono l'applicazione. In questo esempio, ci sono due servizi: `backend` e `redis`.
+#### backend
+Questo servizio rappresenta l'applicazione backend, web application sviluppata con Flask.
+#### redis
+Questo servizio utilizza un'immagine preesistente di Redis, una soluzione di caching in-memory.
+
 ### Creazione dei template e css
 
 All'interno della cartella in cui si trova il mio file `app.py` ho creato due directory `template` e `static`, quest'ultima contenente altre due directory, `style`  e `js`.
@@ -268,8 +305,7 @@ docker compose up -d --build && docker compose logs -f --tail 50
 ### Accesso all'Applicazione
 
 Dopo aver avviato i container, l'applicazione Flask sarà accessibile all'indirizzo `http://localhost:8702`, dove `8702` è la porta specificata nel file .env. Ho aperto il mio browser e ho navigato verso questo URL per vedere l'applicazione in esecuzione.
-### Color Palette 
-[Link dei colori](https://colorhunt.co/palette/fffae6ff9f66ff5f00002379)
+
 ## Risorse aggiuntive
 Per ulteriori informazioni su Docker, consultare la [documentazione ufficiale di docker](https://docs.docker.com/).
 
