@@ -261,29 +261,6 @@ Il file `docker-compose.yaml` è utilizzato per definire e gestire applicazioni 
 
 ### Struttura del file `docker-compose.yaml`
 
-Il file è strutturato in sezioni principali e sottosezioni, ognuna con uno scopo specifico. Ecco una panoramica del contenuto:
-
-```yaml
-version: '3'
-
-services:
-  backend:
-    build:
-      context: ./backend
-    env_file:
-      - .env
-    ports:
-      - ${PORT}:${PORT}
-    container_name: "container_flask"
-    restart: unless-stopped
-    volumes:
-      - ./backend:/usr/src/app
-  redis:
-    image: "redis:alpine"
-    restart: unless-stopped
-    container_name: "container_cache"
-```
-
 #### services
 La sezione `services` definisce i vari servizi (contenitori) che compongono l'applicazione. In questo esempio, ci sono due servizi: `backend` e `redis`.
 #### backend

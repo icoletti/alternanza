@@ -81,7 +81,7 @@ def upload():
       payment_choices = dict(form.payment.choices)
       billing_info_choices = dict(form.billing_info.choices)
       choices = [
-            ('Code invito', boolan_choices.get(invito_boolean, invito_boolean)),
+            ('Codice invito', boolan_choices.get(invito_boolean, invito_boolean)),
             ('Codice', invito_string),
             ('Operazione', operation_choices.get(operation, operation)),
             ('Sottoscelta operazione', operation_sub_choices.get(operation_sub, operation_sub)),
