@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 <h1>{% block title %}Form{% endblock %}</h1>
-<style>
-    .hidden {
-        display: none;
-    }
+
 </style>
 <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
-
 {% block body %}
-<div class="p-4 md:p-8">
+<div class="p-4 md:p-8 print:m-1">
 
     <h1 class="text-center font-extrabold text-bluegray text-5xl mb-6 dark:text-lotus">Form</h1>
     <div class="flex items-center mb-3">

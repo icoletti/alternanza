@@ -11,29 +11,16 @@
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2 },
             jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' },
-            css:`
-                @media print {
-                    .pdf-content {
-                        color: black;
-                    }
-                    .pdf-text {
-                        font-size: 11px;
-                    }
-                    .pdf-title {
-                        font-size: 13px;
-                    }
-                }
-            `
         };
         html2pdf().from(element).set(opt).save();
     }
 </script>
-<h1 class="display flex justify-center font-semibold text-black text-5xl pb-3 dark:text-lotus ">Riepilogo</h1>
+<h1 class="display flex justify-center font-semibold text-black screen:text-5xl pb-3 screen:dark:text-lotus print:hidden">Riepilogo</h1>
 <section class="p-4 md:p-8">
     <div  id="pdf-content" class="pdf-content">
-        <section class="mt-3">
-            <h2 class="pdf-title font-semibold text-bluegray text-3xl dark:text-cadillac">Scelte Fatte</h2>
-                    <ul id="choices-list" class="pdf-text text-base leading-tight">
+        <section class="mt-3 mb-2">
+            <h2 class="font-semibold screen:text-bluegray text-3xl screen:dark:text-cadillac print:text-base">Scelte Fatte</h2>
+                    <ul id="choices-list" class="text-base leading-tight">
                         {% for choice in choices %}
                         <div class="flex flex-col choice-item">
                             <li class="flex items-center">
@@ -47,11 +34,11 @@
                 {% endfor %}
             </ul>
         </section>
-    <br>
-    <br>
-    <br>
+    <br class="print:hidden">
+    <br class="print:hidden">
+    <br class="print:hidden">
     
-    <h2 class="pdf-title font-semibold text-bluegray text-3xl dark:text-cadillac">Stima</h2>
+    <h2 class="font-semibold screen:text-bluegray text-3xl screen:dark:text-cadillac print:text-base">Stima</h2>
     <p class="pdf-text">Prezzo fissato: {{ actual_price }} euro per 1 Bitcoin</p>
     <p class="pdf-text">{{ desc }}</p>
     <p class="pdf-text">Acquisto di {{ quantity }} euro = {{ actual_purchase }} Bitcoin</p>
@@ -61,17 +48,17 @@
     <br>
     <br>
     <br>
-    <div class="mt-6 mb-2">
+    <div class="print:hidden mt-6 mb-4">
         <a href="{{url_for('upload')}}"
             class="btn btn-secondary block w-full bg-bluegray dark:bg-cadillac text-white py-3 rounded-md text-lg text-center md:text-2xl font-semibold shadow-sm hover:bg-cloudburst dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-bluegray">
             Back
         </a>
     </div>
-    <button onclick="downloadPDF()" class="btn btn-primary block w-full bg-bluegray dark:bg-cadillac text-white py-3 rounded-md text-lg text-center md:text-2xl font-semibold shadow-sm hover:bg-cloudburst dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-bluegray">
+    <button onclick="downloadPDF()" class="print:hidden btn btn-primary block w-full bg-bluegray dark:bg-cadillac text-white py-3 rounded-md text-lg text-center md:text-2xl font-semibold shadow-sm hover:bg-cloudburst dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-bluegray">
         Download PDF
     </button>
     </div>
 </section>
 
-
+<footer class="print:hidden"></footer>
 {% endblock %}

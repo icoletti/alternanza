@@ -16,6 +16,10 @@
           sans: ['Graphik', 'sans-serif'],
           serif: ['Merriweather', 'serif'],
         },
+        screens: {
+          print: { raw: 'print' },
+          screen: { raw: 'screen' },
+        },
         extend: {
           colors: {
             lotus: '#74343E',
@@ -34,7 +38,7 @@
 </head>
 
 <body class="bg-gray-100 font-snas dark:bg-givry">
-  <nav class="bg-olivine dark:bg-cadillac text-black dark:text-white">
+  <nav class="bg-olivine dark:bg-cadillac text-black dark:text-white print:hidden">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="{{ url_for('home') }}"
         class="text-xl hover:text-black dark:hover:text-white hover:underline decoration-pineglade decoration-2 rounded-md p-2 dark:decoration-lotus">
