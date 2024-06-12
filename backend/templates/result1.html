@@ -1,36 +1,63 @@
 {% extends 'base.html' %}
-<h1>{% block title %}Riepilogo{% endblock %}</h1>
+{% block title %}Riepilogo{% endblock %}
 {% block body %}
 <script src="{{ url_for('static', filename='js/result.js') }}"></script>
-<h1 class="display flex justify-center font-semibold text-bluegray text-5xl pb-3 dark:text-lotus">Riepilogo</h1>
+<script>
+    function downloadPDF() {
+        const element = document.getElementById('pdf-content');
+        const opt = {
+            margin:       1,
+            filename:     'riepilogo.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' },
+            css:`
+                @media print {
+                    .pdf-content {
+                        color: black;
+                    }
+                    .pdf-text {
+                        font-size: 11px;
+                    }
+                    .pdf-title {
+                        font-size: 13px;
+                    }
+                }
+            `
+        };
+        html2pdf().from(element).set(opt).save();
+    }
+</script>
+<h1 class="display flex justify-center font-semibold text-black text-5xl pb-3 dark:text-lotus ">Riepilogo</h1>
 <section class="p-4 md:p-8">
-    <br>
-    <section class="mt-3">
-        <h2 class="font-semibold text-bluegray text-3xl dark:text-cadillac">Scelte Fatte</h2>
-        <ul id="choices-list">
-            <div class="flex flex-col">
-                {% for choice in choices %}
-                <li class="flex items-center">
-                    {{ choice[0] }}: {{ choice[1] }}
-                    {% if choice[1] in smart_options %}
-                        <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6">
-                    {% endif %}
-                </li>
+    <div  id="pdf-content" class="pdf-content">
+        <section class="mt-3">
+            <h2 class="pdf-title font-semibold text-bluegray text-3xl dark:text-cadillac">Scelte Fatte</h2>
+                    <ul id="choices-list" class="pdf-text text-base leading-tight">
+                        {% for choice in choices %}
+                        <div class="flex flex-col choice-item">
+                            <li class="flex items-center">
+                                {{ choice[0] }}: {{ choice[1] }}
+                                {% if choice[1] in smart_options %}
+                                    <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6">
+                                
+                                {% endif %}
+                        </li>
+                    </div>
                 {% endfor %}
-            </div>
-        
-        </ul>
-    </section>
+            </ul>
+        </section>
+    <br>
+    <br>
+    <br>
     
-    <br>
-    <br>
-    <br>
-
-    <h2 class="font-semibold text-bluegray text-3xl dark:text-cadillac">Stima</h2>
-    <p>Prezzo fissato: {{ actual_price }} euro per 1 Bitcoin</p>
-    <p>{{ desc }}</p>
-    <p>Acquisto di {{ quantity }} euro = {{ actual_purchase }} Bitcoin</p>
-    <p>Hai un risparmio del {{savings_percentange}}% sulle commissioni!</p>
+    <h2 class="pdf-title font-semibold text-bluegray text-3xl dark:text-cadillac">Stima</h2>
+    <p class="pdf-text">Prezzo fissato: {{ actual_price }} euro per 1 Bitcoin</p>
+    <p class="pdf-text">{{ desc }}</p>
+    <p class="pdf-text">Acquisto di {{ quantity }} euro = {{ actual_purchase }} Bitcoin</p>
+    <p class="pdf-text">Hai un risparmio del {{savings_percentange}}% sulle commissioni!</p>
+    </div>
+    
     <br>
     <br>
     <br>
@@ -39,6 +66,10 @@
             class="btn btn-secondary block w-full bg-bluegray dark:bg-cadillac text-white py-3 rounded-md text-lg text-center md:text-2xl font-semibold shadow-sm hover:bg-cloudburst dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-bluegray">
             Back
         </a>
+    </div>
+    <button onclick="downloadPDF()" class="btn btn-primary block w-full bg-bluegray dark:bg-cadillac text-white py-3 rounded-md text-lg text-center md:text-2xl font-semibold shadow-sm hover:bg-cloudburst dark:hover:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset focus:ring-bluegray">
+        Download PDF
+    </button>
     </div>
 </section>
 
