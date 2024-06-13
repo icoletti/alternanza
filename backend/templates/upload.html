@@ -5,25 +5,24 @@
 <script src="{{ url_for('static', filename='js/slider.js') }}"></script>
 {% block body %}
 <div class="p-4 md:p-8 print:m-0">
-
-    <h1 class="text-center font-extrabold text-bluegray text-5xl mb-6 dark:text-lotus">Form</h1>
-    <div class="flex items-center mb-3">
+    <h1 class="print:text-lg print:text-black print:text-left screen:text-center font-extrabold text-bluegray screen:text-5xl screen:mb-6 dark:text-lotus">Form</h1>
+    <div class="flex items-center screen:mb-3">
         <p>Approfitta delle scelte smart! Indicate con</p>
         <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6" alt="Best Option">
     </div>
-    <br>
+    <br class="print:hidden">
     <form method="POST" action="{{ url_for('upload') }}">
         {{ form.csrf_token }}
         {{ form.hidden_tag() }}
 
-        <div class="mb-4">
-            <label class="block font-bold text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.invito_boolean.label
+        <div class="screen:mb-4">
+            <label class="block font-bold print:text-black print:text-lg text-graybase screen:text-2xl screen:mb-2 screen:dark:text-cadillac">{{ form.invito_boolean.label
                 }}</label>
-            <p class="mb-2">Possiedi un codice invito?</p>
+            <p class="screen:mb-2">Possiedi un codice invito?</p>
             {% for subfield in form.invito_boolean %}
-            <div class="flex items-center mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-2xl") }}
-                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer">{{ subfield.label.text }}</label>
+            <div class="flex items-center screen:mb-2 option-container" onclick="selectOption('{{ subfield.id }}')">
+                {{ subfield(class="print:text-base screen:text-2xl") }}
+                <label for="{{ subfield.id }}" class="ml-2 cursor-pointer print:text-sm">{{ subfield.label.text }}</label>
             </div>
             {% endfor %}
             {% for error in form.invito_boolean.errors %}
@@ -31,32 +30,32 @@
             {% endfor %}
         </div>
 
-        <div id="new-sub-field" class="mb-4 hidden text-2xl text-graybase mb-2 ml-5 dark:text-cadillac">
-            <label class="block text-graybase text-2xl font-semibold dark:text-cadillac">{{ form.invito_string.label
+        <div id="new-sub-field" class="mb-4 hidden text-2xl text-graybase screen:mb-2 ml-5 dark:text-cadillac">
+            <label class="block text-graybase screen:text-2xl font-semibold dark:text-cadillac print:text-base">{{ form.invito_string.label
                 }}</label>
-            {{ form.invito_string(class="block rounded-md border-0 p-1.5 text-black text-lg shadow-sm ring-1 ring-inset
-            ring-bluegray dark:ring-tangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+            {{ form.invito_string(class="block rounded-md border-0 screen:p-1.5 text-black print:text-sm screen:text-lg shadow-sm ring-1 ring-inset
+            print:ring-black screen:ring-bluegray screen:dark:ring-tangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset
             focus:ring-cadillac") }}
             {% for error in form.invito_string.errors %}
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
         </div>
 
-        <br>
+        <br class="print:hidden">
 
-        <div class="mb-4" id="operazione">
-            <label class="block text-graybase font-bold text-2xl mb-2 dark:text-cadillac">{{ form.operation.label
+        <div class="screen:mb-4" id="operazione">
+            <label class="block screen:text-graybase print:text-black print:text-base font-bold screen:text-2xl screen:mb-2 dark:text-cadillac">{{ form.operation.label
                 }}</label>
             {% for subfield in form.operation %}
-            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-2xl") }}
+            <div class="flex items-center screen:mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
+                {{ subfield(class="screen:text-2xl print:text-sm") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
                 <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
                     alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine"
+            <div class="text-bluegray print:text-sm print:text-black cursor-pointer screen:ml-5 screen:mb-5 dark:text-tangerine"
                 onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
@@ -65,17 +64,17 @@
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
         </div>
-        <br>
+        <br class="print:hidden">
         <div class="ml-7 hidden" id="sub-options-standard">
-            <label class="block text-graybase text-2xl font-semibold mb-2 dark:text-cadillac">{{
+            <label class="block text-graybase print:text-base screen:text-2xl font-semibold screen:mb-2 dark:text-cadillac">{{
                 form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt1', 'opt2'] %}
-            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-2xl") }}
+            <div class="flex items-center screen:mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
+                {{ subfield(class="screen:text-2xl print:text-sm") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
             </div>
-            <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine"
+            <div class="screen:text-bluegray print:text-sm print:text-black cursor-pointer screen:ml-5 screen:mb-5 dark:text-tangerine"
                 onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
@@ -88,15 +87,15 @@
         </div>
 
         <div class="ml-7 hidden" id="sub-options-best">
-            <label class="block text-graybase text-2xl font-semibold mb-2 dark:text-cadillac">{{
+            <label class="block text-graybase screen:text-2xl font-semibold screen:mb-2 dark:text-cadillac">{{
                 form.operation_sub.label }}</label>
             {% for subfield in form.operation_sub %}
             {% if subfield.data in ['opt3', 'opt4', 'opt5'] %}
-            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-2xl") }}
+            <div class="flex items-center screen:mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
+                {{ subfield(class="screen:text-2xl") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
             </div>
-            <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine"
+            <div class="screen:text-bluegray print:text-sm print:text-black cursor-pointer screen:ml-5 screen:mb-5 dark:text-tangerine"
                 onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
@@ -108,19 +107,19 @@
             <br>
         </div>
 
-        <div class="mb-4">
-            <label class="block font-bold text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.payment.label
+        <div class="screen:mb-4">
+            <label class="block print:text-base font-bold text-graybase screen:text-2xl screen:mb-2 dark:text-cadillac">{{ form.payment.label
                 }}</label>
             {% for subfield in form.payment %}
-            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-2xl") }}
+            <div class="flex items-center screen:mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
+                {{ subfield(class="screen:text-2xl print:text-sm") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
                 <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
                     alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray cursor-pointer ml-5 mb-5 dark:text-tangerine"
+            <div class="screen:text-bluegray print:text-sm print:text-black cursor-pointer screen:ml-5 screen:mb-5 dark:text-tangerine"
                 onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
@@ -129,20 +128,20 @@
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
         </div>
-        <br>
-        <div class="mb-4">
-            <label class="block font-bold text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.billing_info.label
+        <br class="print:hidden">
+        <div class="screen:mb-4">
+            <label class="block print:text-base print:text-black font-bold screen:text-graybase screen:text-2xl mb-2 dark:text-cadillac">{{ form.billing_info.label
                 }}</label>
             {% for subfield in form.billing_info %}
-            <div class="flex items-center mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
-                {{ subfield(class="text-2xl") }}
+            <div class="flex items-center screen:mb-2 cursor-pointer" onclick="selectOption('{{ subfield.id }}')">
+                {{ subfield(class="screen:text-2xl print:text-sm") }}
                 <label for="{{ subfield.id }}" class="ml-2">{{ subfield.label.text }}</label>
                 {% if subfield.data in ['best_option0', 'best_option1', 'best_option2'] %}
                 <img src="{{ url_for('static', filename='images/best_option.svg') }}" class="ml-2 w-6 h-6"
                     alt="Best Option">
                 {% endif %}
             </div>
-            <div class="text-bluegray ml-5 mb-5 cursor-pointer dark:text-tangerine"
+            <div class="screen:text-bluegray print:text-sm print:text-black screen:ml-5 screen:mb-5 cursor-pointer dark:text-tangerine"
                 onclick="selectOption('{{ subfield.id }}')">
                 {{ form.category_descriptions[subfield.data] }}
             </div>
@@ -151,20 +150,20 @@
             <span class="text-red-500">{{ error }}</span>
             {% endfor %}
         </div>
-        <br>
-        <div class="mb-4">
-            <label class="block font-bold text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.quantity.label
+        <br class="print:hidden">
+        <div class="screen:mb-4">
+            <label class="block font-bold print:text-black print:text-base screen:text-graybase text-2xl mb-2 dark:text-cadillac">{{ form.quantity.label
                 }}</label>
-            <p class="mb-2">Minimo di 100 fino al massimo di 100000</p>
+            <p class="screen:mb-2">Minimo di 100 fino al massimo di 100000</p>
             <input type="number" id="quantity-input" name="quantity" min="100" max="100000"
                 value="{{ form.quantity.data if form.quantity.data else 100 }}"
-                class="block rounded-md border-0 p-1.5 text-black text-lg shadow-sm ring-1 ring-inset ring-bluegray dark:ring-tangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cadillac"
+                class="block rounded-md border-0 screen:p-1.5 text-black print:text-sm screen:text-lg shadow-sm ring-1 ring-inset print:ring-black screen:ring-bluegray dark:ring-tangerine placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-cadillac"
                 oninput="updateSliderValue(this.value)">
             <input type="range" id="quantity-slider" list="markers" min="100" max="100000"
                 value="{{ form.quantity.data if form.quantity.data else 100 }}"
                 oninput="updateQuantityValue(this.value)"
-                class="w-full h-2 bg-bluegray outline-none cursor-pointer dark:bg-cloudburst">
-            <datalist id="markers" class="flex justify-between w-full">
+                class="print:hidden mt-6 mb-6 w-full h-2 bg-bluegray outline-none cursor-pointer dark:bg-cloudburst">
+            <datalist id="markers" class="print:hidden flex justify-between w-full">
                 <option value="100"></option>
                 <option value="300"></option>
                 <option value="1000"></option>
@@ -178,7 +177,7 @@
             {% endfor %}
         </div>
 
-        <div class="mt-6 mb-6">
+        <div class="print:hidden mt-6 mb-6">
             <button type="submit"
                 class="block w-full text-black dark:text-white py-3 rounded-md text-lg md:text-2xl font-semibold shadow-sm hover:bg-olivine bg-bluegray dark:hover:bg-cadillac dark:bg-bluegray focus:outline-none focus:ring-2 focus:ring-inset">
                 Submit
